@@ -12,12 +12,16 @@ mesa.agregar_objeto(servilletero)
 mesa.agregar_objeto(vaso_sucio)
 
 ana = Cliente("Ana", 30)
-
+ana.agregar_caracteristica("apurad@")
+ana.agregar_caracteristica("vegetarian@")
 mesa.sentar_cliente(ana)
 
 print(mesa)
+print(ana)
 
+ana.pararse()
 mesa.quitar_objeto(vaso_sucio)
 mesa.limpiar()
 
 print(mesa)
+print(ana)

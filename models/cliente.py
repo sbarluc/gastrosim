@@ -7,6 +7,25 @@ class Cliente:
 
         self.nombre = nombre
         self.edad = edad
+        self.caracteristicas = []
 
         self.mesa = None
         self.sentado = False
+    
+    def agregar_caracteristica(self, caracteristica):
+        self.caracteristicas.append(caracteristica)
+
+    def pararse(self):
+        self.sentado = False
+
+    def __repr__(self):
+        caracteristicas = ", ".join(self.caracteristicas)
+        return (
+            f"Cliente("
+            f"id={self.id}, "
+            f"nombre={self.nombre}, "
+            f"edad={self.edad}"
+            f"{', ' + caracteristicas if caracteristicas else ''}, "
+            f"{'sentad@' if self.sentado else 'parad@'}"
+            f")"
+        )
