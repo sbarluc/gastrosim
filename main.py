@@ -20,4 +20,6 @@ print(mesa)
 mesa.quitar_objeto(vaso_sucio)
 mesa.limpiar()
 
+mesa.ensuciar()
+
 print(mesa)
