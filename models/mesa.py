@@ -6,8 +6,16 @@ class Mesa:
         self.clientes = []
         self.objetos = []
 
+        self.limpia = True
+
     def tiene_lugar(self):
         return len(self.clientes) < self.capacidad_maxima
+
+    def esta_ocupada(self):
+        return len(self.clientes) > 0
+    
+    def esta_limpia(self):
+        return self.limpia
 
     def sentar_cliente(self, cliente):
         if not self.tiene_lugar():
@@ -21,10 +29,23 @@ class Mesa:
         cliente.sentado = True
 
         return True
+    
+    def limpiar(self):
+        self.limpia = True
+
+    def ensuciar(self):
+        self.limpia = False
+
+    def cantidad_clientes(self):
+        return len(self.clientes)
 
     def __repr__(self):
         return (
-            f"Mesa(id={self.id}, "
-            f"clientes={len(self.clientes)}/{self.capacidad_maxima}, "
-            f"objetos={len(self.objetos)})"
+            f"Mesa("
+            f"id={self.id}, "
+            f"clientes={self.cantidad_clientes()}/{self.capacidad_maxima}, "
+            f"objetos={len(self.objetos)}"
+            f"={len(self.objetos)}, "
+            f"estado={'limpia' if self.esta_limpia() else 'sucia'}"
+            f")"
         )

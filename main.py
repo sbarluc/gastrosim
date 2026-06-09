@@ -9,4 +9,6 @@ pedro = Cliente("Pedro", 25)
 mesa.sentar_cliente(ana)
 mesa.sentar_cliente(pedro)
 
+mesa.ensuciar()
+
 print(mesa)
