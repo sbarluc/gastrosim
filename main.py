@@ -5,23 +5,18 @@ from models.cliente import Cliente
 mesa = Mesa(1, 2)
 
 servilletero = Objeto("Servilletero")
-vaso_sucio = Objeto("Vaso sucio")
+lata = Objeto("Lata")
 
-mesa.ensuciar()
 mesa.agregar_objeto(servilletero)
-mesa.agregar_objeto(vaso_sucio)
-
-ana = Cliente("Ana", 30)
-ana.agregar_caracteristica("apurad@")
-ana.agregar_caracteristica("vegetarian@")
-mesa.sentar_cliente(ana)
+maxi = Cliente("Maxi", 25)
+maxi.agregar_caracteristica("enojad@")
 
 print(mesa)
-print(ana)
+print(f"{maxi}\n")
 
-ana.pararse()
-mesa.quitar_objeto(vaso_sucio)
-mesa.limpiar()
+mesa.sentar_cliente(maxi)
+mesa.agregar_objeto(lata)
+mesa.ensuciar()
 
 print(mesa)
-print(ana)
+print(f"{maxi}\n")
