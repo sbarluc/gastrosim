@@ -38,7 +38,6 @@ class Mesa:
 
     def cantidad_clientes(self):
         return len(self.clientes)
-<<<<<<< HEAD
 
     def agregar_objeto(self, objeto):
         self.objetos.append(objeto)
@@ -51,20 +50,13 @@ class Mesa:
 
     def agregar_objeto(self, objeto):
         return self.objetos.append(objeto)
-=======
->>>>>>> 49dc86b62cabbe9ed6ecbe1f2556685444c90762
 
     def __repr__(self):
         return (
             f"Mesa("
             f"id={self.id}, "
             f"clientes={self.cantidad_clientes()}/{self.capacidad_maxima}, "
-<<<<<<< HEAD
             f"objetos={len(self.objetos)}, "
-=======
-            f"objetos={len(self.objetos)}"
-            f"={len(self.objetos)}, "
->>>>>>> 49dc86b62cabbe9ed6ecbe1f2556685444c90762
             f"estado={'limpia' if self.esta_limpia() else 'sucia'}"
             f")"
         )
