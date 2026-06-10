@@ -10,15 +10,19 @@ class Empleado:
 
         self.inventario = []
 
-    def cargar_objeto(self, objeto):
+    def cargar_objeto(self, origen, objeto):
+        if objeto not in origen.objetos:
+            return False
+        
         self.inventario.append(objeto)
+        origen.quitar_objeto(objeto)
 
-    def dejar_objeto(self, mesa, objeto):
+    def dejar_objeto(self, destino, objeto):
         if objeto not in self.inventario:
             return False
 
         self.inventario.remove(objeto)
-        mesa.agregar_objeto(objeto)
+        destino.agregar_objeto(objeto)
 
         return True
 
