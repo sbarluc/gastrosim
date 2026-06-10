@@ -11,11 +11,13 @@ class Empleado:
         self.inventario = []
 
     def cargar_objeto(self, origen, objeto):
-        if objeto not in origen.objetos:
+        objeto_retirado = origen.quitar_objeto(objeto)
+        if objeto_retirado is None:
             return False
-        
-        self.inventario.append(objeto)
-        origen.quitar_objeto(objeto)
+
+        self.inventario.append(objeto_retirado)
+
+        return True
 
     def dejar_objeto(self, destino, objeto):
         if objeto not in self.inventario:
