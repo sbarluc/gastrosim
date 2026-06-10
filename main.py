@@ -4,12 +4,14 @@ from models.cliente import Cliente
 from models.empleado import Empleado
 
 servilletero = Objeto("Servilletero")
+estanteria = Objeto("Estanteria", [servilletero])
 mesa = Mesa(1, 2)
 seve = Empleado("Seve", "Moz@")
-maxi = Cliente("Maxi", 25)
-maxi.agregar_caracteristica("enojad@")
+maxi = Cliente("Ana", 25)
 
-seve.cargar_objeto(servilletero)
+print(seve)
+
+seve.cargar_objeto(estanteria, servilletero)
 
 print(seve)
 print(mesa)

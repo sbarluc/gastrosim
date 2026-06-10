@@ -48,9 +48,6 @@ class Mesa:
             return objeto
         return None
 
-    def agregar_objeto(self, objeto):
-        return self.objetos.append(objeto)
-
     def __repr__(self):
         return (
             f"Mesa("
