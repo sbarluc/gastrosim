@@ -5,21 +5,30 @@ from models.empleado import Empleado
 
 servilletero = Objeto("Servilletero")
 estanteria = Objeto("Estanteria", [servilletero])
-mesa = Mesa(1, 2)
+mesa1 = Mesa(1, 2)
+mesa2 = Mesa(1, 2)
 seve = Empleado("Seve", "Moz@")
-maxi = Cliente("Ana", 25)
+ana = Cliente("Ana", 25)
 
 print(seve)
 
 seve.cargar_objeto(estanteria, servilletero)
 
 print(seve)
-print(mesa)
-print(f"{maxi}\n")
+print(mesa1)
+print(f"{ana}\n")
 
-mesa.sentar_cliente(maxi)
-seve.dejar_objeto(mesa, servilletero)
+mesa1.sentar_cliente(ana)
+seve.dejar_objeto(mesa1, servilletero)
 
 print(seve)
-print(mesa)
-print(f"{maxi}\n")
+print(mesa1)
+print(mesa2)
+print(f"{ana}\n")
+
+mesa2.sentar_cliente(ana)
+
+print(seve)
+print(mesa1)
+print(mesa2)
+print(f"{ana}\n")

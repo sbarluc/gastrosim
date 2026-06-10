@@ -18,11 +18,11 @@ class Mesa:
         return self.limpia
 
     def sentar_cliente(self, cliente):
-        if not self.tiene_lugar():
+        if (not self.tiene_lugar()
+            or cliente in self.clientes
+            or cliente.mesa is not None):
             return False
-        if cliente in self.clientes:
-            return False
-
+        
         self.clientes.append(cliente)
 
         cliente.mesa = self
