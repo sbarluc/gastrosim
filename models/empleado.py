@@ -1,7 +1,10 @@
 class Empleado:
+    siguiente_id = 1
 
     def __init__(self, nombre, puesto):
-
+        self.id = Empleado.siguiente_id
+        Empleado.siguiente_id += 1
+        
         self.nombre = nombre
         self.puesto = puesto
 
@@ -33,6 +36,6 @@ class Empleado:
             f"Empleado("
             f"nombre='{self.nombre}', "
             f"puesto='{self.puesto}', "
-            f"objetos={len(self.inventario)}"
+            f"inventario={self.inventario}"
             f")"
         )
