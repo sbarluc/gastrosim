@@ -11,3 +11,11 @@ class Objeto:
             self.objetos.remove(objeto)
             return objeto
         return None
+    
+    def __repr__(self):
+        return (
+            f"Objeto("
+            f"nombre={self.nombre}, "
+            f"objetos={self.objetos}"
+            f")"
+        )
