@@ -1,6 +1,9 @@
 class Mesa:
+    siguiente_id = 1
+
     def __init__(self, id, capacidad_maxima):
-        self.id = id
+        self.id = Mesa.siguiente_id
+        Mesa.siguiente_id += 1
         self.capacidad_maxima = capacidad_maxima
 
         self.clientes = []
@@ -39,6 +42,9 @@ class Mesa:
     def cantidad_clientes(self):
         return len(self.clientes)
 
+    def cantidad_sentados(self):
+        return sum(1 for c in self.clientes if c.sentado)
+
     def agregar_objeto(self, objeto):
         self.objetos.append(objeto)
 
@@ -52,8 +58,9 @@ class Mesa:
         return (
             f"Mesa("
             f"id={self.id}, "
-            f"clientes={self.cantidad_clientes()}/{self.capacidad_maxima}, "
-            f"objetos={len(self.objetos)}, "
+            f"ocupacion={self.cantidad_sentados()}/{self.capacidad_maxima}, "
+            f"clientes={self.cantidad_clientes()}, "
+            f"objetos={self.objetos}, "
             f"estado={'limpia' if self.esta_limpia() else 'sucia'}"
             f")"
         )
