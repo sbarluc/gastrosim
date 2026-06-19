@@ -1,7 +1,7 @@
 class Objeto:
-    def __init__(self, nombre, objetos=None):
+    def __init__(self, nombre, objetos=[]):
         self.nombre = nombre
-        self.objetos = objetos if objetos is not None else []
+        self.objetos = objetos
     
     def agregar_objeto(self, objeto):
         self.objetos.append(objeto)
