@@ -7,7 +7,7 @@ class Mesa:
         self.sillas = sillas
 
         self.clientes_sentados = []
-        self.clientes = []
+        self.clientes_asignados = []
         self.objetos = []
 
         self.limpia = True
@@ -16,7 +16,7 @@ class Mesa:
         return len(self.clientes_sentados) < self.sillas
 
     def esta_ocupada(self):
-        return len(self.clientes) > 0
+        return len(self.clientes_sentados) > 0
     
     def esta_limpia(self):
         return self.limpia

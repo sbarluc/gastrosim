@@ -1,15 +1,15 @@
 class Cliente:
     siguiente_id = 1
 
-    def __init__(self, nombre, edad, specs=[]):
+    def __init__(self, nombre, edad, specs=None):
         self.id = Cliente.siguiente_id
         Cliente.siguiente_id += 1
 
         self.nombre = nombre
         self.edad = edad
-        self.specs = specs
+        self.specs = specs if specs is not None else []
 
-        self.mesa = None
+        self.mesa_asignada = None
         self.sentado = False
     
     def agregar_spec(self, spec):
@@ -20,10 +20,10 @@ class Cliente:
             return False
         mesa.ocupar_silla(self)
         self.sentado = True
-        self.mesa = mesa
+        self.mesa_asignada = mesa
 
     def pararse(self):
-        self.mesa.desocupar_silla(self)
+        self.mesa_asignada.desocuparSei
         self.sentado = False
 
     def __repr__(self):
