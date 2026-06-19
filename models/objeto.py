@@ -14,8 +14,6 @@ class Objeto:
     
     def __repr__(self):
         return (
-            f"Objeto("
-            f"nombre={self.nombre}, "
-            f"objetos={self.objetos}"
-            f")"
+            f"      |Objeto - {self.nombre}\n"
+            f"      |objetos: {[o.nombre for o in self.objetos]}\n"
         )

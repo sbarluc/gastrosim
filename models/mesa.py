@@ -1,18 +1,19 @@
 class Mesa:
     siguiente_id = 1
 
-    def __init__(self, id, capacidad_maxima):
+    def __init__(self, id, sillas):
         self.id = Mesa.siguiente_id
         Mesa.siguiente_id += 1
-        self.capacidad_maxima = capacidad_maxima
+        self.sillas = sillas
 
+        self.clientes_sentados = []
         self.clientes = []
         self.objetos = []
 
         self.limpia = True
 
     def tiene_lugar(self):
-        return len(self.clientes) < self.capacidad_maxima
+        return len(self.clientes_sentados) < self.sillas
 
     def esta_ocupada(self):
         return len(self.clientes) > 0
@@ -21,15 +22,19 @@ class Mesa:
         return self.limpia
 
     def asignar_cliente(self, cliente):
-        if (not self.tiene_lugar()
-            or cliente in self.clientes
-            or cliente.mesa is not None):
-            return False
-        
         self.clientes.append(cliente)
+        return True
+    
+    def ocupar_silla(self, cliente):
+        if not self.tiene_lugar():
+            return False
+        self.clientes_sentados.append(cliente)
+        return True
 
-        cliente.mesa = self
-
+    def desocupar_silla(self, cliente):
+        if not cliente in self.clientes_sentados:
+            return False
+        self.clientes_sentados.remove(cliente)
         return True
     
     def limpiar(self):
@@ -42,7 +47,7 @@ class Mesa:
         return len(self.clientes)
 
     def cantidad_sentados(self):
-        return sum(1 for c in self.clientes if c.sentado)
+        return self.clientes_sentados
 
     def agregar_objeto(self, objeto):
         self.objetos.append(objeto)
@@ -55,11 +60,8 @@ class Mesa:
 
     def __repr__(self):
         return (
-            f"Mesa("
-            f"id={self.id}, "
-            f"ocupacion={self.cantidad_sentados()}/{self.capacidad_maxima}, "
-            f"clientes={self.cantidad_clientes()}, "
-            f"objetos={self.objetos}, "
-            f"estado={'limpia' if self.esta_limpia() else 'sucia'}"
-            f")"
+            f"      |Mesa[{self.id}] - {'limpia' if self.esta_limpia() else 'sucia'}\n"
+            f"      |clientes: {[f'Cliente[{c.id}]' for c in self.clientes]}\n"
+            f"      |sentados: {[f'Cliente[{c.id}]' for c in self.clientes_sentados]}\n" 
+            f"      |objetos: (?/?) | {[o.nombre for o in self.objetos]}\n"
         )

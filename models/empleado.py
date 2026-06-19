@@ -29,11 +29,11 @@ class Empleado:
 
         return True
 
+    def asignar_cliente_a_mesa(self, cliente, mesa):
+        mesa.asignar_cliente(cliente)
+
     def __repr__(self):
         return (
-            f"Empleado("
-            f"nombre='{self.nombre}', "
-            f"puesto='{self.puesto}', "
-            f"inventario={self.inventario}"
-            f")"
+            f"      |Empleado[{self.id}] - {self.nombre}, {self.puesto}\n"
+            f"      |objetos: {[o.nombre for o in self.inventario]}\n"
         )
