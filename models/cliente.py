@@ -23,7 +23,7 @@ class Cliente:
         self.mesa_asignada = mesa
 
     def pararse(self):
-        self.mesa_asignada.desocuparSei
+        self.mesa_asignada.desocupar_silla(self)
         self.sentado = False
 
     def __repr__(self):

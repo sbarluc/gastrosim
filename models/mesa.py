@@ -22,7 +22,7 @@ class Mesa:
         return self.limpia
 
     def asignar_cliente(self, cliente):
-        self.clientes.append(cliente)
+        self.clientes_asignados.append(cliente)
         return True
     
     def ocupar_silla(self, cliente):
@@ -44,7 +44,7 @@ class Mesa:
         self.limpia = False
 
     def cantidad_clientes(self):
-        return len(self.clientes)
+        return len(self.clientes_asignados)
 
     def cantidad_sentados(self):
         return self.clientes_sentados
@@ -61,7 +61,7 @@ class Mesa:
     def __repr__(self):
         return (
             f"      |Mesa[{self.id}] - {'limpia' if self.esta_limpia() else 'sucia'}\n"
-            f"      |clientes: {[f'Cliente[{c.id}]' for c in self.clientes]}\n"
+            f"      |clientes: {[f'Cliente[{c.id}]' for c in self.clientes_asignados]}\n"
             f"      |sentados: {[f'Cliente[{c.id}]' for c in self.clientes_sentados]}\n" 
             f"      |objetos: (?/?) | {[o.nombre for o in self.objetos]}\n"
         )
