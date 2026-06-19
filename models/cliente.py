@@ -15,6 +15,11 @@ class Cliente:
     def agregar_caracteristica(self, caracteristica):
         self.caracteristicas.append(caracteristica)
 
+    def sentarse(self, mesa):
+        if (not mesa.tiene_lugar()):
+            return False
+        
+
     def pararse(self):
         self.sentado = False
 

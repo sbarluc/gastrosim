@@ -20,7 +20,7 @@ class Mesa:
     def esta_limpia(self):
         return self.limpia
 
-    def sentar_cliente(self, cliente):
+    def asignar_cliente(self, cliente):
         if (not self.tiene_lugar()
             or cliente in self.clientes
             or cliente.mesa is not None):
@@ -29,7 +29,6 @@ class Mesa:
         self.clientes.append(cliente)
 
         cliente.mesa = self
-        cliente.sentado = True
 
         return True
     
