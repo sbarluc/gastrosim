@@ -1,12 +1,13 @@
 from models.objeto import Objeto
 from models.mesa import Mesa
+from models.estanteria import Estanteria
 from models.cliente import Cliente
 from models.empleado import Empleado
 
 servilletero = Objeto("Servilletero")
-estanteria = Objeto("Estanteria", [servilletero])
-mesa1 = Mesa(1, 2)
-mesa2 = Mesa(2, 2)
+estanteria = Estanteria([servilletero])
+mesa1 = Mesa(2)
+mesa2 = Mesa(2)
 seve = Empleado("Seve", "Moz@")
 ana = Cliente("Ana", 25, specs=["Alegre", "Distraida"])
 eduardo = Cliente("Eduardo", 26)
@@ -25,7 +26,6 @@ seve.cargar_objeto(estanteria, servilletero)
 print("\nSeve cargo un servilletero de la estanteria:")
 print(seve)
 print(estanteria)
-print(servilletero)
 
 seve.dejar_objeto(mesa1, servilletero)
 print("Seve dejo un servilletero en la mesa 1:")

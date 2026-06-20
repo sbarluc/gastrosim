@@ -1,13 +1,16 @@
-class Mesa:
+from models.contenedor import Contenedor
+
+class Mesa(Contenedor):
     siguiente_id = 1
 
-    def __init__(self, id, sillas):
+    def __init__(self, sillas, objetos=None):
+        super().__init__(objetos)
+
         self.id = Mesa.siguiente_id
         Mesa.siguiente_id += 1
         self.sillas = sillas
 
         self.clientes_sentados = []
-        self.objetos = []
 
         self.limpia = True
 
@@ -40,15 +43,6 @@ class Mesa:
 
     def cantidad_sentados(self):
         return len(self.clientes_sentados)
-
-    def agregar_objeto(self, objeto):
-        self.objetos.append(objeto)
-
-    def quitar_objeto(self, objeto):
-        if objeto in self.objetos:
-            self.objetos.remove(objeto)
-            return objeto
-        return None
 
     def __repr__(self):
         return (
