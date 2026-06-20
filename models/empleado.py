@@ -1,9 +1,11 @@
-from models.entidad import Entidad
 from models.inventario import Inventario
-class Empleado(Entidad):
+class Empleado:
+    siguiente_id = 1
 
     def __init__(self, nombre, puesto):
-        super().__init__()
+        self.id = Empleado.siguiente_id
+        Empleado.siguiente_id += 1
+        
         self.nombre = nombre
         self.puesto = puesto
 

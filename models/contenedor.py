@@ -1,8 +1,6 @@
-from models.entidad import Entidad
-class Contenedor(Entidad):
+class Contenedor:
 
     def __init__(self, objetos=None, nombre=""):
-        super().__init__()
         self.nombre = nombre
         self.objetos = objetos if objetos is not None else []
 

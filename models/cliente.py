@@ -1,8 +1,10 @@
-from models.entidad import Entidad
-class Cliente(Entidad):
+class Cliente:
+    siguiente_id = 1
 
     def __init__(self, nombre, edad, specs=None):
-        super().__init__()
+        self.id = Cliente.siguiente_id
+        Cliente.siguiente_id += 1
+
         self.nombre = nombre
         self.edad = edad
         self.specs = specs if specs is not None else []

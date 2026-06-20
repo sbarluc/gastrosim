@@ -1,8 +1,13 @@
 from models.contenedor import Contenedor
+
 class Estanteria(Contenedor):
+    siguiente_id = 1
 
     def __init__(self, objetos=None):
         super().__init__(objetos)
+
+        self.id = Estanteria.siguiente_id
+        Estanteria.siguiente_id += 1
 
         self.limpia = True
     
