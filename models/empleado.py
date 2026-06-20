@@ -10,8 +10,8 @@ class Empleado:
 
         self.estado = "libre"
         self.posicion = None
-
         self.inventario = []
+        self.mesas_asignadas = {}
 
     def cargar_objeto(self, origen, objeto):
         if objeto not in origen.objetos:
@@ -29,8 +29,8 @@ class Empleado:
 
         return True
 
-    def asignar_cliente_a_mesa(self, cliente, mesa):
-        mesa.asignar_cliente(cliente)
+    def asignar_mesa_a_cliente(self, cliente, mesa):
+        cliente.asignar_mesa(mesa)
 
     def __repr__(self):
         return (
