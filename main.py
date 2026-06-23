@@ -84,6 +84,6 @@ print(zoteldo)
 print(mesa2)
 
 zoteldo.sentarse_en(mesa1)
-print("\nZoteldo se seinta en la mesa 1:")
+print("\nZoteldo se sienta en la mesa 1:")
 print(zoteldo)
 print(mesa1)

@@ -6,20 +6,21 @@ class Contenedor(Entidad):
         super().__init__()
 
         self.nombre = nombre
-        self.objetos = objetos if objetos is not None else []
+
+        self._objetos = objetos if objetos is not None else []
 
     def agregar_objeto(self, objeto):
-        self.objetos.append(objeto)
+        self._objetos.append(objeto)
 
     def quitar_objeto(self, objeto):
-        if objeto in self.objetos:
-            self.objetos.remove(objeto)
+        if objeto in self._objetos:
+            self._objetos.remove(objeto)
             return objeto
         
         return None
     
     def contiene(self, objeto):
-        return objeto in self.objetos
+        return objeto in self._objetos
     
     def cantidad_objetos(self):
-        return len(self.objetos)
+        return len(self._objetos)

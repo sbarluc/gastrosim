@@ -5,16 +5,16 @@ class Estanteria(Contenedor):
     def __init__(self, objetos=None):
         super().__init__(objetos)
 
-        self.limpia = True
+        self._limpia = True
     
     def esta_limpia(self):
-        return self.limpia
+        return self._limpia
     
     def limpiar(self):
-        self.limpia = True
+        self._limpia = True
 
     def ensuciar(self):
-        self.limpia = False
+        self._limpia = False
 
     def __repr__(self):
         return (
