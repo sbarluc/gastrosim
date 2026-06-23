@@ -19,5 +19,5 @@ class Estanteria(Contenedor):
     def __repr__(self):
         return (
             f"      |{self.id_gral} - Estanteria[{self.id}] - {'limpia' if self.esta_limpia() else 'sucia'}\n"
-            f"      |objetos: (?/?) | {[o.nombre for o in self.objetos]}\n"
+            f"      |objetos: (?/?) | {[o.nombre for o in self._objetos]}\n"
         )

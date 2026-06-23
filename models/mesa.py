@@ -49,5 +49,5 @@ class Mesa(Contenedor):
         return (
             f"      |{self.id_gral} - Mesa[{self.id}] - {'limpia' if self.esta_limpia() else 'sucia'}{' - llena' if not self.tiene_lugar() else ''}\n"
             f"      |clientes sentados: {[c.nombre for c in self._clientes_sentados]}\n" 
-            f"      |objetos: (?/?) | {[o.nombre for o in self.objetos]}\n"
+            f"      |objetos: (?/?) | {[o.nombre for o in self._objetos]}\n"
         )

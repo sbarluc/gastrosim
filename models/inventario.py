@@ -6,4 +6,4 @@ class Inventario(Contenedor):
         super().__init__(objetos)
     
     def __repr__(self):
-        return (f"{[o.nombre for o in self.objetos]}")
+        return (f"{[o.nombre for o in self._objetos]}")
