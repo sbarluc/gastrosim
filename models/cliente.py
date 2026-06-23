@@ -19,7 +19,7 @@ class Cliente(Entidad):
         self.specs.append(spec)
 
     def sentarse_en(self, mesa):
-        if (not mesa.tiene_lugar()):
+        if (not mesa.tiene_lugar() or self.sentado):
             return False
         
         mesa.ocupar_silla(self)

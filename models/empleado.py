@@ -16,15 +16,21 @@ class Empleado(Entidad):
         if self.inventario.contiene(objeto):
             return False
         
+        objeto = origen.quitar_objeto(objeto)
+        if objeto is None:
+            return False
+        
         self.inventario.agregar_objeto(objeto)
-        origen.quitar_objeto(objeto)
         return True
 
     def dejar_objeto(self, destino, objeto):
         if not self.inventario.contiene(objeto):
             return False
 
-        self.inventario.quitar_objeto(objeto)
+        objeto = self.inventario.quitar_objeto(objeto)
+        if objeto is None:
+            return False
+        
         destino.agregar_objeto(objeto)
         return True
 
