@@ -1,14 +1,13 @@
 from models.inventario import Inventario
-class Empleado:
-    siguiente_id = 1
+from models.entidad import Entidad
 
-    def __init__(self, nombre, puesto):
-        self.id = Empleado.siguiente_id
-        Empleado.siguiente_id += 1
+class Empleado(Entidad):
+
+    def __init__(self, nombre, puesto): 
+        super().__init__()
         
         self.nombre = nombre
         self.puesto = puesto
-
         self.estado = "libre"
         self.posicion = None
         self.inventario = Inventario()
@@ -19,6 +18,7 @@ class Empleado:
         
         self.inventario.agregar_objeto(objeto)
         origen.quitar_objeto(objeto)
+        return True
 
     def dejar_objeto(self, destino, objeto):
         if not self.inventario.contiene(objeto):
@@ -26,7 +26,6 @@ class Empleado:
 
         self.inventario.quitar_objeto(objeto)
         destino.agregar_objeto(objeto)
-
         return True
 
     def asignar_mesa_a_cliente(self, cliente, mesa):
@@ -34,6 +33,6 @@ class Empleado:
 
     def __repr__(self):
         return (
-            f"      |Empleado[{self.id}] - {self.nombre}, {self.puesto}\n"
+            f"      |{self.id_gral} - Empleado[{self.id}] - {self.nombre}, {self.puesto}\n"
             f"      |inventario: {self.inventario}\n"
         )

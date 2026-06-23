@@ -1,17 +1,12 @@
 from models.contenedor import Contenedor
 
 class Mesa(Contenedor):
-    siguiente_id = 1
 
     def __init__(self, sillas, objetos=None):
         super().__init__(objetos)
 
-        self.id = Mesa.siguiente_id
-        Mesa.siguiente_id += 1
         self.sillas = sillas
-
         self.clientes_sentados = []
-
         self.limpia = True
 
     def tiene_lugar(self):
@@ -26,12 +21,14 @@ class Mesa(Contenedor):
     def ocupar_silla(self, cliente):
         if not self.tiene_lugar():
             return False
+        
         self.clientes_sentados.append(cliente)
         return True
 
     def desocupar_silla(self, cliente):
         if not cliente in self.clientes_sentados:
             return False
+        
         self.clientes_sentados.remove(cliente)
         return True
     
@@ -46,7 +43,7 @@ class Mesa(Contenedor):
 
     def __repr__(self):
         return (
-            f"      |Mesa[{self.id}] - {'limpia' if self.esta_limpia() else 'sucia'}\n"
-            f"      |clientes sentados: {[f'Cliente[{c.id}]' for c in self.clientes_sentados]}\n" 
+            f"      |{self.id_gral} - Mesa[{self.id}] - {'limpia' if self.esta_limpia() else 'sucia'}{' - llena' if not self.tiene_lugar() else ''}\n"
+            f"      |clientes sentados: {[c.nombre for c in self.clientes_sentados]}\n" 
             f"      |objetos: (?/?) | {[o.nombre for o in self.objetos]}\n"
         )
