@@ -29,9 +29,13 @@ class Cliente(Entidad):
         return True
 
     def pararse(self):
+        if self._mesa_actual is None:
+            return False
+
         self._mesa_actual.desocupar_silla(self)
         self._mesa_actual = None
         self._sentado = False
+        return True
 
     def mesa_actual(self):
         return self._mesa_actual

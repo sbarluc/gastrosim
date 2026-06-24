@@ -43,10 +43,10 @@ class Mesa(Contenedor):
         return len(self._clientes_sentados)
     
     def clientes_sentados(self):
-        return self._clientes_sentados
+        return self._clientes_sentados.copy()
     
     def objetos(self):
-        return self._objetos
+        return self._objetos.copy()
 
     def __repr__(self):
         return f"Mesa{self.id}"
