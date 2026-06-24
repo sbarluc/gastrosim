@@ -38,8 +38,8 @@ class Empleado(Entidad):
     def asignar_mesa_a_cliente(self, cliente, mesa):
         cliente.asignar_mesa(mesa)
 
+    def inventario(self):
+        return self._inventario
+
     def __repr__(self):
-        return (
-            f"      |{self.id_gral} - Empleado[{self.id}] - {self.nombre}, {self.puesto}\n"
-            f"      |inventario: {self._inventario}\n"
-        )
+        return self.nombre

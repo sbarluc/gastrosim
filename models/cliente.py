@@ -33,10 +33,11 @@ class Cliente(Entidad):
         self._mesa_actual = None
         self._sentado = False
 
+    def mesa_actual(self):
+        return self._mesa_actual
+    
+    def mesa_asignada(self):
+        return self._mesa_asignada
+
     def __repr__(self):
-        return (
-            f"      |{self.id_gral} - Cliente[{self.id}] - {self.nombre}, {self.edad} años\n"
-            f"      |specs: {self._specs}\n"
-            f"      |mesa actual: {'-' if self._mesa_actual is None else (f'Mesa[{self._mesa_actual.id}]')}\n"
-            f"      |mesa asignada: {'-' if self._mesa_asignada is None else (f'Mesa[{self._mesa_asignada.id}]')}\n"
-        )
+        return self.nombre

@@ -8,6 +8,4 @@ class Objeto(Entidad):
         self.nombre = nombre
 
     def __repr__(self):
-        return (
-            f"      |{self.id_gral} - Objeto[{self.id}] - {self.nombre}\n"
-        )
+        return self.nombre
