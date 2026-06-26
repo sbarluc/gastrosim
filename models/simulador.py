@@ -10,26 +10,15 @@ class Simulador:
             TipoEntidad.ESTANTERIA: {}
         }
 
-    def agregar_mesas(self, mesas):
-        for mesa in mesas:
-            self._entidades[TipoEntidad.MESA][mesa.id] = mesa
-        return self
-
-    def agregar_empleados(self, empleados):
-        for empleado in empleados:
-            self._entidades[TipoEntidad.EMPLEADO][empleado.id] = empleado
-        return self
-
-    def agregar_clientes(self, clientes):
-        for cliente in clientes:
-            self._entidades[TipoEntidad.CLIENTE][cliente.id] = cliente
-        return self
-
-    def agregar_estanterias(self, estanterias):
-        for estanteria in estanterias:
-            self._entidades[TipoEntidad.ESTANTERIA][estanteria.id] = estanteria
+    def agregar_entidad(self, entidad):
+        if self.buscar_entidad(entidad.tipo, entidad.id) is None:
+            self._entidades[entidad.tipo][entidad.id] = entidad
         return self
     
+    def buscar_entidad(self, tipo, id):
+        if tipo in self._entidades and id in self._entidades[tipo]:
+            return self._entidades[tipo][id]   
+
     def mostrar_universo(self):
         for id_mesa, mesa in self._entidades[TipoEntidad.MESA].items():
             print(f"MESA {id_mesa}" + \
@@ -49,4 +38,25 @@ class Simulador:
         for id_estanteria, estanteria in self._entidades[TipoEntidad.ESTANTERIA].items():
             print(f"ESTANTERIA {id_estanteria}" + \
             (f" <objetos: {estanteria.objetos()}>" if len(estanteria.objetos())>0 else ""))
-        
+
+    # Outdated
+
+    def agregar_mesas(self, mesas):
+        for mesa in mesas:
+            self._entidades[TipoEntidad.MESA][mesa.id] = mesa
+        return self
+
+    def agregar_empleados(self, empleados):
+        for empleado in empleados:
+            self._entidades[TipoEntidad.EMPLEADO][empleado.id] = empleado
+        return self
+
+    def agregar_clientes(self, clientes):
+        for cliente in clientes:
+            self._entidades[TipoEntidad.CLIENTE][cliente.id] = cliente
+        return self
+
+    def agregar_estanterias(self, estanterias):
+        for estanteria in estanterias:
+            self._entidades[TipoEntidad.ESTANTERIA][estanteria.id] = estanteria
+        return self
