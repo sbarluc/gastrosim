@@ -29,11 +29,6 @@ class Simulador:
         for estanteria in estanterias:
             self._entidades[TipoEntidad.ESTANTERIA][estanteria.id] = estanteria
         return self
-
-    def buscar_entidad(self, id_gral):
-        if id_gral not in self._entidades:
-            return None
-        return self._entidades[id_gral]
     
     def mostrar_universo(self):
         for id_mesa, mesa in self._entidades[TipoEntidad.MESA].items():
