@@ -24,3 +24,6 @@ class Contenedor(Entidad):
     
     def cantidad_objetos(self):
         return len(self._objetos)
+    
+    def objetos(self):
+        return self._objetos.copy()
