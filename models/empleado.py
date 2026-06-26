@@ -1,10 +1,11 @@
 from models.inventario import Inventario
 from models.entidad import Entidad
+from models.tipo_entidad import TipoEntidad
 
 class Empleado(Entidad):
 
     def __init__(self, nombre, puesto): 
-        super().__init__()
+        super().__init__(TipoEntidad.EMPLEADO)
         
         self.nombre = nombre
         self.puesto = puesto

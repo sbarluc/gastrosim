@@ -1,9 +1,10 @@
 from models.contenedor import Contenedor
+from models.tipo_entidad import TipoEntidad
 
 class Estanteria(Contenedor):
 
     def __init__(self, objetos=None):
-        super().__init__(objetos)
+        super().__init__(TipoEntidad.ESTANTERIA, objetos)
 
         self._limpia = True
     

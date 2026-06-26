@@ -2,8 +2,8 @@ from models.entidad import Entidad
 
 class Contenedor(Entidad):
 
-    def __init__(self, objetos=None, nombre=""):
-        super().__init__()
+    def __init__(self, tipo, objetos=None, nombre=""):
+        super().__init__(tipo)
 
         self.nombre = nombre
 

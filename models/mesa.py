@@ -1,9 +1,10 @@
 from models.contenedor import Contenedor
+from models.tipo_entidad import TipoEntidad
 
 class Mesa(Contenedor):
 
     def __init__(self, cantidad_sillas, objetos=None):
-        super().__init__(objetos)
+        super().__init__(TipoEntidad.MESA, objetos)
 
         self.cantidad_sillas = cantidad_sillas
         

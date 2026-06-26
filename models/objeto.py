@@ -1,9 +1,10 @@
 from models.entidad import Entidad
+from models.tipo_entidad import TipoEntidad
 
 class Objeto(Entidad):
 
     def __init__(self, nombre):
-        super().__init__()
+        super().__init__(TipoEntidad.OBJETO)
         
         self.nombre = nombre
 

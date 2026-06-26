@@ -1,9 +1,10 @@
 from models.entidad import Entidad
+from models.tipo_entidad import TipoEntidad
 
 class Cliente(Entidad):
     
     def __init__(self, nombre, edad, specs=None):
-        super().__init__()
+        super().__init__(TipoEntidad.CLIENTE)
 
         self.nombre = nombre
         self.edad = edad
