@@ -44,9 +44,6 @@ class Mesa(Contenedor):
     
     def clientes_sentados(self):
         return self._clientes_sentados.copy()
-    
-    def objetos(self):
-        return self._objetos.copy()
 
     def __repr__(self):
         return f"Mesa{self.id}"
