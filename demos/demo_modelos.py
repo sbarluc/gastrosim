@@ -6,7 +6,7 @@ from models.empleado import Empleado
 from models.simulador import Simulador
 import os
 
-def test_inicial():  
+def test():  
 
     servilletero = Objeto("Servilletero")
     menus = list(map(lambda x: Objeto(f"menu[{x}]"), [1,2,3]))

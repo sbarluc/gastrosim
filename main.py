@@ -1,3 +1,3 @@
-from tests.test_inicial import test_inicial
+from demos.demo_modelos import test
 
-test_inicial()
+test()
