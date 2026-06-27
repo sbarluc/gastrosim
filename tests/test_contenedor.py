@@ -56,17 +56,6 @@ def test_agregar_objeto():
     assert contenedor.cantidad_objetos() == 1
     assert contenedor.contiene(objeto)
     
-def test_agregar_objeto_que_excede_la_capacidad():
-    contenedor = Contenedor(
-        tipo=TipoEntidad.INVENTARIO,
-        carga_max=5
-    )
-
-    servilletero = Objeto("Servilletero", peso=6)
-
-    assert not contenedor.agregar_objeto(servilletero)
-    assert contenedor.cantidad_objetos() == 0
-
 def test_agregar_objeto_dentro_de_la_capacidad():
     contenedor = Contenedor(
         tipo=TipoEntidad.ESTANTERIA,
@@ -77,3 +66,14 @@ def test_agregar_objeto_dentro_de_la_capacidad():
 
     assert contenedor.agregar_objeto(servilletero)
     assert contenedor.cantidad_objetos() == 1
+    
+def test_no_agrega_objeto_si_excede_la_capacidad():
+    contenedor = Contenedor(
+        tipo=TipoEntidad.INVENTARIO,
+        carga_max=5
+    )
+
+    servilletero = Objeto("Servilletero", peso=6)
+
+    assert not contenedor.agregar_objeto(servilletero)
+    assert contenedor.cantidad_objetos() == 0
