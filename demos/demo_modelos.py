@@ -6,7 +6,14 @@ from models.empleado import Empleado
 from models.simulador import Simulador
 import os
 
-def test():  
+from models.menu import Menu
+from data.test_menu import dicc_precios
+
+def test():
+    menu = Menu(dicc_precios)
+    print(menu.precio("Croissant nutella"))
+
+def test2():  
 
     servilletero = Objeto("Servilletero")
     menus = list(map(lambda x: Objeto(f"menu[{x}]"), [1,2,3]))
