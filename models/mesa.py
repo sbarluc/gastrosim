@@ -1,62 +1,50 @@
-class Mesa:
-    def __init__(self, id, capacidad_maxima):
-        self.id = id
-        self.capacidad_maxima = capacidad_maxima
+from models.contenedor import Contenedor
+from models.tipo_entidad import TipoEntidad
 
-        self.clientes = []
-        self.objetos = []
+class Mesa(Contenedor):
 
-        self.limpia = True
+    def __init__(self, cantidad_sillas, objetos=None, carga_max=float("inf")):
+        super().__init__(TipoEntidad.MESA, objetos, carga_max)
+
+        self.cantidad_sillas = cantidad_sillas
+        
+        self._clientes_sentados = []
+        self._limpia = True
 
     def tiene_lugar(self):
-        return len(self.clientes) < self.capacidad_maxima
+        return len(self._clientes_sentados) < self.cantidad_sillas
 
     def esta_ocupada(self):
-        return len(self.clientes) > 0
+        return len(self._clientes_sentados) > 0
     
     def esta_limpia(self):
-        return self.limpia
-
-    def sentar_cliente(self, cliente):
+        return self._limpia
+    
+    def ocupar_silla(self, cliente):
         if not self.tiene_lugar():
             return False
-        if cliente in self.clientes:
+        
+        self._clientes_sentados.append(cliente)
+        return True
+
+    def desocupar_silla(self, cliente):
+        if not cliente in self._clientes_sentados:
             return False
-
-        self.clientes.append(cliente)
-
-        cliente.mesa = self
-        cliente.sentado = True
-
+        
+        self._clientes_sentados.remove(cliente)
         return True
     
     def limpiar(self):
-        self.limpia = True
+        self._limpia = True
 
     def ensuciar(self):
-        self.limpia = False
+        self._limpia = False
 
-    def cantidad_clientes(self):
-        return len(self.clientes)
-
-    def agregar_objeto(self, objeto):
-        self.objetos.append(objeto)
-
-    def quitar_objeto(self, objeto):
-        if objeto in self.objetos:
-            self.objetos.remove(objeto)
-            return objeto
-        return None
-
-    def agregar_objeto(self, objeto):
-        return self.objetos.append(objeto)
+    def cantidad_sentados(self):
+        return len(self._clientes_sentados)
+    
+    def clientes_sentados(self):
+        return self._clientes_sentados.copy()
 
     def __repr__(self):
-        return (
-            f"Mesa("
-            f"id={self.id}, "
-            f"clientes={self.cantidad_clientes()}/{self.capacidad_maxima}, "
-            f"objetos={len(self.objetos)}, "
-            f"estado={'limpia' if self.esta_limpia() else 'sucia'}"
-            f")"
-        )
+        return f"Mesa{self.id}"
