@@ -15,4 +15,4 @@ def dicc_precios():
         "Salmón a la plancha": 9800,
         "Ñoquis con pesto": 6900,
         "Risotto de hongos": 8200
-    } 
+    }
