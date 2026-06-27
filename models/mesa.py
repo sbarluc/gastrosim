@@ -3,8 +3,8 @@ from models.tipo_entidad import TipoEntidad
 
 class Mesa(Contenedor):
 
-    def __init__(self, cantidad_sillas, objetos=None):
-        super().__init__(TipoEntidad.MESA, objetos)
+    def __init__(self, cantidad_sillas, objetos=None, carga_max=float("inf")):
+        super().__init__(TipoEntidad.MESA, objetos, carga_max)
 
         self.cantidad_sillas = cantidad_sillas
         

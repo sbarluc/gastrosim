@@ -3,8 +3,8 @@ from models.tipo_entidad import TipoEntidad
 
 class Estanteria(Contenedor):
 
-    def __init__(self, objetos=None):
-        super().__init__(TipoEntidad.ESTANTERIA, objetos)
+    def __init__(self, objetos=None, carga_max=float("inf")):
+        super().__init__(TipoEntidad.ESTANTERIA, objetos, carga_max)
 
         self._limpia = True
     

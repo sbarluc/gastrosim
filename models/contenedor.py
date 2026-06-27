@@ -2,7 +2,7 @@ from models.entidad import Entidad
 
 class Contenedor(Entidad):
 
-    def __init__(self, tipo, objetos=None, nombre="", carga_max=float("inf")):
+    def __init__(self, tipo, objetos, carga_max, nombre=""):
         super().__init__(tipo)
 
         self.nombre = nombre
@@ -19,11 +19,13 @@ class Contenedor(Entidad):
             not self.puede_cargar(objeto):
             return False
         self._objetos.append(objeto)
+        self._carga_actual += objeto.peso
         return True
 
     def quitar_objeto(self, objeto):
         if objeto in self._objetos:
             self._objetos.remove(objeto)
+            self._carga_actual -= objeto.peso
             return objeto
         
         return None
