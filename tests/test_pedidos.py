@@ -5,7 +5,6 @@ from data.test_menu import dicc_precios
 from models.item_pedido import ItemPedido
 from models.pedido import Pedido
 
-# Fixtures para datos básicos
 @pytest.fixture
 def dicc_precios_1():
     return dicc_precios()

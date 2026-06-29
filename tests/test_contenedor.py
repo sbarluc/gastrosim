@@ -25,6 +25,7 @@ def caja_4():
 def caja_6():
     return Objeto("Caja", peso=6)
 
+# Tests
 def test_contenedor_empieza_vacio(estanteria_1):
     assert estanteria_1.cantidad_objetos() == 0
     assert estanteria_1.objetos() == []
