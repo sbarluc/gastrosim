@@ -8,32 +8,23 @@ from models.pedido import Pedido
 @pytest.fixture
 def dicc_precios_1():
     return dicc_precios()
-
 @pytest.fixture
 def menu_1(dicc_precios_1):
     return Menu(dicc_precios_1)
-
 @pytest.fixture
 def mesa_1():
     return Mesa(1)
-
 @pytest.fixture
 def mesa_2():
     return Mesa(1)
-
 @pytest.fixture
 def pedido_vacio(mesa_1):
     return Pedido(mesa_1)
-
 @pytest.fixture
-def pedido_con_menu(mesa_1, menu_1):
-    return Pedido(mesa_1, menu_1)
-
-@pytest.fixture
-def pedido_con_items(pedido_con_menu):
-    pedido_con_menu.agregar_item("Cafe con leche")
-    pedido_con_menu.agregar_item("Croissant nutella")
-    return pedido_con_menu
+def pedido_con_items(pedido_vacio):
+    pedido_vacio.agregar_item(menu_1, "Cafe con leche")
+    pedido_vacio.agregar_item(menu_1, "Croissant nutella")
+    return pedido_vacio
 
 # Tests
 def test_menu_recibe_diccionario_de_precios(menu_1, dicc_precios_1):
@@ -48,51 +39,51 @@ def test_pedido_para_mesa_comienza_vacio(pedido_vacio, mesa_1):
     assert pedido_vacio.valor() == 0
     assert pedido_vacio.mesa_actual() == mesa_1
 
-def test_agregar_item_a_pedido_actualiza_el_valor_total(pedido_con_menu, dicc_precios_1):
-    pedido_con_menu.agregar_item("Salmón a la plancha")
-    assert pedido_con_menu.cantidad_items() == 1
-    assert pedido_con_menu.valor() == dicc_precios_1["Salmón a la plancha"]
+def test_agregar_item_a_pedido_actualiza_el_valor_total(menu_1, pedido_vacio, dicc_precios_1):
+    pedido_vacio.agregar_item(menu_1, "Salmón a la plancha")
+    assert pedido_vacio.cantidad_items() == 1
+    assert pedido_vacio.valor() == dicc_precios_1["Salmón a la plancha"]
 
-def test_quitar_item_a_pedido_actualiza_el_valor_total(pedido_con_menu, dicc_precios_1):
-    pedido_con_menu.agregar_item("Cafe con leche")
-    pedido_con_menu.agregar_item("Croissant nutella")
-    pedido_con_menu.quitar_item("Croissant nutella")
-    assert pedido_con_menu.valor() == dicc_precios_1["Cafe con leche"]
+def test_quitar_item_a_pedido_actualiza_el_valor_total(menu_1, pedido_vacio, dicc_precios_1):
+    pedido_vacio.agregar_item(menu_1, "Cafe con leche")
+    pedido_vacio.agregar_item(menu_1, "Croissant nutella")
+    pedido_vacio.quitar_item("Croissant nutella")
+    assert pedido_vacio.valor() == dicc_precios_1["Cafe con leche"]
 
-def test_item_entregado_no_puede_ser_borrado(pedido_con_menu, dicc_precios_1):
-    pedido_con_menu.agregar_item("Cafe con leche")
-    pedido_con_menu.agregar_item("Croissant nutella")
-    pedido_con_menu.entregar_item("Cafe con leche")
-    assert not pedido_con_menu.quitar_item("Cafe con leche")
-    assert pedido_con_menu.valor() == dicc_precios_1["Cafe con leche"] + dicc_precios_1["Croissant nutella"]
+def test_item_entregado_no_puede_ser_borrado(menu_1, pedido_vacio, dicc_precios_1):
+    pedido_vacio.agregar_item(menu_1, "Cafe con leche")
+    pedido_vacio.agregar_item(menu_1, "Croissant nutella")
+    pedido_vacio.entregar_item("Cafe con leche")
+    assert not pedido_vacio.quitar_item("Cafe con leche")
+    assert pedido_vacio.valor() == dicc_precios_1["Cafe con leche"] + dicc_precios_1["Croissant nutella"]
 
-def test_agregar_descuento_actualiza_el_valor_total(pedido_con_menu, dicc_precios_1):
-    pedido_con_menu.agregar_item("Pizza margarita")
-    pedido_con_menu.agregar_descuento(4000)
-    assert pedido_con_menu.valor() == dicc_precios_1["Pizza margarita"] - 4000
+def test_agregar_descuento_actualiza_el_valor_total(menu_1, pedido_vacio, dicc_precios_1):
+    pedido_vacio.agregar_item(menu_1, "Pizza margarita")
+    pedido_vacio.agregar_descuento(4000)
+    assert pedido_vacio.valor() == dicc_precios_1["Pizza margarita"] - 4000
 
 def test_pedido_cambia_de_mesa(mesa_1, mesa_2):
     pedido = Pedido(mesa_1)
     pedido.cambiar_mesa(mesa_2)
     assert pedido.mesa_actual() == mesa_2
 
-def test_pedido_puede_tener_multiples_items(pedido_con_menu, dicc_precios_1):
+def test_pedido_puede_tener_multiples_items(menu_1, pedido_vacio, dicc_precios_1):
     items = ["Cafe con leche", "Croissant nutella", "Salmón a la plancha"]
     valor_esperado = 0
     
     for item in items:
-        pedido_con_menu.agregar_item(item)
+        pedido_vacio.agregar_item(menu_1, item)
         valor_esperado += dicc_precios_1[item]
     
-    assert pedido_con_menu.cantidad_items() == 3
-    assert pedido_con_menu.valor() == valor_esperado
+    assert pedido_vacio.cantidad_items() == 3
+    assert pedido_vacio.valor() == valor_esperado
 
-def test_quitar_item_inexistente_no_cambia_el_pedido(pedido_con_menu):
-    pedido_con_menu.agregar_item("Cafe con leche")
-    valor_original = pedido_con_menu.valor()
+def test_quitar_item_inexistente_no_cambia_el_pedido(menu_1, pedido_vacio):
+    pedido_vacio.agregar_item(menu_1, "Cafe con leche")
+    valor_original = pedido_vacio.valor()
     
-    resultado = pedido_con_menu.quitar_item("Item inexistente")
+    resultado = pedido_vacio.quitar_item("Item inexistente")
     
     assert not resultado
-    assert pedido_con_menu.cantidad_items() == 1
-    assert pedido_con_menu.valor() == valor_original
+    assert pedido_vacio.cantidad_items() == 1
+    assert pedido_vacio.valor() == valor_original

@@ -2,8 +2,7 @@ from models.item_pedido import ItemPedido
 
 class Pedido():
     
-    def __init__(self, mesa, menu=None):
-        self.menu = menu
+    def __init__(self, mesa):
         self._mesa_actual = mesa
         self._valor = 0
         self._items = []
@@ -11,8 +10,8 @@ class Pedido():
     def cantidad_items(self):
         return len(self._items)
 
-    def agregar_item(self, nombre):
-        item = ItemPedido(self.menu, nombre)
+    def agregar_item(self, menu, nombre):
+        item = ItemPedido(menu, nombre)
         if item is not None:
             self._items.append(item)
             self._valor += item.valor()
