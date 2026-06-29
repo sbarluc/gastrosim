@@ -37,6 +37,16 @@ def test_quitar_item_a_pedido_actualiza_el_precio_total():
     pedido.quitar_item("Croissant nutella")
     assert pedido.precio() == 3000
 
+def item_entregado_no_puede_ser_borrado():
+    menu = Menu(dicc_precios)
+    mesa = Mesa(1)
+    pedido = Pedido(mesa, menu)
+    pedido.agregar_item("Cafe con leche")
+    pedido.agregar_item("Croissant nutella")
+    pedido.entregar_item("Cafe con leche")
+    assert not pedido.quitar_item("Cafe con leche")
+    assert pedido.precio() == 7000
+
 def test_pedido_cambia_de_mesa():
     mesa1 = Mesa(1)
     mesa2 = Mesa(1)

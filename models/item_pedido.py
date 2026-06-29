@@ -12,3 +12,6 @@ class ItemPedido(Entidad):
     
     def precio(self):
         return self._precio
+    
+    def entregar(self):
+        self._entregado = True

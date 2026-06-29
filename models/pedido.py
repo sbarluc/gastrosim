@@ -27,6 +27,13 @@ class Pedido():
             return True
         return False
     
+    def entregar_item(self, nombre):
+        item = self._buscar_item_no_entregado(nombre)
+        if item is not None:
+            item.entregar()
+            return True
+        return False
+    
     def mesa_actual(self):
         return self._mesa_actual
     
