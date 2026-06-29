@@ -1,12 +1,11 @@
 from models.objeto import Objeto
-from models.tipo_entidad import TipoEntidad
 
 class Menu(Objeto):
 
     def __init__(self, dicc_precios):
         super().__init__("Menu")
 
-        self._precios = dicc_precios()
+        self._precios = dicc_precios
 
     def precio(self, nombre):
         if nombre in self._precios:
