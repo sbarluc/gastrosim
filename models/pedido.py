@@ -5,7 +5,7 @@ class Pedido():
     def __init__(self, mesa, menu=None):
         self.menu = menu
         self._mesa_actual = mesa
-        self._precio = 0
+        self._valor = 0
         self._items = []
 
     def cantidad_items(self):
@@ -15,7 +15,7 @@ class Pedido():
         item = ItemPedido(self.menu, nombre)
         if item is not None:
             self._items.append(item)
-            self._precio += item.precio()
+            self._valor += item.valor()
             return True
         return False
     
@@ -23,7 +23,7 @@ class Pedido():
         item = self._buscar_item_no_entregado(nombre)
         if item is not None:
             self._items.remove(item)
-            self._precio -= item.precio()
+            self._valor -= item.valor()
             return True
         return False
     
@@ -34,11 +34,15 @@ class Pedido():
             return True
         return False
     
+    def agregar_descuento(self, valor):
+        self._items.append(ItemPedido().descuento(valor))
+        self._valor -= valor
+    
     def mesa_actual(self):
         return self._mesa_actual
     
-    def precio(self):
-        return self._precio
+    def valor(self):
+        return self._valor
 
     def cambiar_mesa(self, mesa):
         self._mesa_actual = mesa
