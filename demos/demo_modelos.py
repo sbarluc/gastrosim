@@ -6,12 +6,17 @@ from models.empleado import Empleado
 from models.simulador import Simulador
 import os
 
+from models.pedido import Pedido
 from models.menu import Menu
 from data.test_menu import dicc_precios
 
 def test():
     menu = Menu(dicc_precios)
-    print(menu.precio("Croissant nutella"))
+    mesa = Mesa(1)
+    pedido = Pedido(mesa, menu)
+    pedido.agregar_item("Cafe con leche")
+    pedido.agregar_item("Croissant nutella")
+    pedido.quitar_item("Croissant nutella")
 
 def test2():  
 
