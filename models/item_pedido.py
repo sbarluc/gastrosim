@@ -19,4 +19,4 @@ class ItemPedido(Entidad):
     def descuento(self, valor):
         self.nombre = "Descuento"
         self._valor = valor
-        
+        return self

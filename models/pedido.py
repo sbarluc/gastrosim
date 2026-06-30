@@ -19,22 +19,16 @@ class Pedido():
         return False
     
     def quitar_item(self, nombre):
-        item = self._buscar_item_no_entregado(nombre)
-        if item is not None:
-            self._items.remove(item)
-            self._valor -= item.valor()
-            return True
-        return False
-    
-    def entregar_item(self, nombre):
-        item = self._buscar_item_no_entregado(nombre)
-        if item is not None:
-            item.entregar()
-            return True
+        for item in self._items:
+            if item.nombre == nombre:
+                self._items.remove(item)
+                self._valor -= item.valor()
+                return True
         return False
     
     def agregar_descuento(self, valor):
-        self._items.append(ItemPedido().descuento(valor))
+        item_descuento = ItemPedido().descuento_neto(valor)
+        self._items.append(item_descuento)
         self._valor -= valor
     
     def mesa_actual(self):
@@ -45,10 +39,3 @@ class Pedido():
 
     def cambiar_mesa(self, mesa):
         self._mesa_actual = mesa
-
-    def _buscar_item_no_entregado(self, nombre):
-        return next(
-            (item for item in self._items 
-             if (item.nombre == nombre and not item.fue_entregado()))
-            , None
-        )
