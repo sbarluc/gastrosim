@@ -10,7 +10,7 @@ from models.pedido import Pedido
 from models.menu import Menu
 from data.test_menu import dicc_precios
 
-def test():
+def test2():
     menu = Menu(dicc_precios)
     mesa = Mesa(1)
     pedido = Pedido(mesa, menu)
@@ -18,7 +18,7 @@ def test():
     pedido.agregar_item("Croissant nutella")
     pedido.quitar_item("Croissant nutella")
 
-def test2():  
+def test():  
 
     servilletero = Objeto("Servilletero")
     menus = list(map(lambda x: Objeto(f"menu[{x}]"), [1,2,3]))
@@ -40,7 +40,8 @@ def test2():
     seve.cargar_objeto(estanteria, servilletero)
     for menu in menus:
         seve.cargar_objeto(estanteria, menu)
-    mostrar_evento(simulador, "Seve cargó un servilletero y los menús.")
+        mostrar_evento(simulador, f"Seve cargó un {menu} y los menús.")
+   
 
     seve.dejar_objeto(mesa1, servilletero)
     mostrar_evento(simulador, "Seve dejó un servilletero en la mesa 1.")
