@@ -6,6 +6,7 @@ from models.empleado import Empleado
 from models.simulador import Simulador
 import os
 
+from models.item_pedido import ItemPedido
 from models.pedido import Pedido
 from models.menu import Menu
 from data.test_menu import dicc_precios
@@ -14,7 +15,13 @@ def test():
     menu = Menu(dicc_precios)
     mesa = Mesa(1)
     pedido = Pedido(mesa)
-    pedido.agregar_item()
+    items = [
+       ItemPedido.desde_menu(menu, "Cafe con leche"),
+       ItemPedido("Descuento de 10000", -10000)
+    ]
+    for i in items:
+       pedido.agregar_item(i)
+    
     print(pedido)
 
 def test2():  
