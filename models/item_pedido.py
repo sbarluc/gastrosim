@@ -16,10 +16,9 @@ class ItemPedido(Entidad):
     def entregar(self):
         self._entregado = True
 
-    def desde_menu(self, menu):
-        self._valor = 0
-        precio = menu.precio(self.nombre)
-        if precio:
-            self._valor += precio
-            return self
-        return None
+    @classmethod
+    def desde_menu(cls, menu, nombre):
+        precio = menu.precio(nombre)
+        if precio is None:
+            return None
+        return cls(nombre, precio)

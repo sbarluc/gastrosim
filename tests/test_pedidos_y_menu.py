@@ -39,15 +39,15 @@ def test_item_pedido_se_crea_sin_menu():
     assert item2.valor() == -10000
 
 def test_item_pedido_se_crea_desde_menu(menu):
-    item = ItemPedido("Cafe con leche").desde_menu(menu)
+    item = ItemPedido.desde_menu(menu, "Cafe con leche")
     assert item.nombre == "Cafe con leche"
     assert item.valor() == 3000
-    item2 = ItemPedido("Lomo saltado").desde_menu(menu)
+    item2 = ItemPedido.desde_menu(menu, "Lomo saltado")
     assert item2.nombre == "Lomo saltado"
     assert item2.valor() == 9200
 
 def test_item_pedido_con_nombre_inexistente(menu):
-    item = ItemPedido("Plato inexistente").desde_menu(menu)
+    item = ItemPedido.desde_menu(menu, "Plato inexistente")
     assert item is None
 
 def test_item_pedido_entregar(menu):
@@ -60,29 +60,29 @@ def test_item_pedido_entregar(menu):
 
 def test_agregar_item_a_pedido(pedido, menu):
     assert pedido.cantidad_items() == 0
-    assert pedido.agregar_item(ItemPedido("Cafe con leche").desde_menu(menu))
+    assert pedido.agregar_item(ItemPedido.desde_menu(menu, "Cafe con leche"))
     assert pedido.cantidad_items() == 1
     assert pedido.valor() == 3000
 
 
 def test_agregar_multiple_items(pedido, menu):
-    assert pedido.agregar_item(ItemPedido("Cafe con leche").desde_menu(menu))
+    assert pedido.agregar_item(ItemPedido.desde_menu(menu, "Cafe con leche"))
     assert pedido.agregar_item(ItemPedido("Salsa extra", 1500))
-    assert pedido.agregar_item(ItemPedido("Salmón a la plancha").desde_menu(menu))
+    assert pedido.agregar_item(ItemPedido.desde_menu(menu, "Salmón a la plancha"))
     
     assert pedido.cantidad_items() == 3
     assert pedido.valor() == 3000 + 1500 + 9800
 
 
 def test_agregar_item_inexistente(pedido, menu):
-    assert not pedido.agregar_item(ItemPedido("Tecito de ayahuasca").desde_menu(menu))
+    assert not pedido.agregar_item(ItemPedido.desde_menu(menu, "Tecito de ayahuasca"))
     assert pedido.cantidad_items() == 0
     assert pedido.valor() == 0
 
 
 def test_agregar_item_duplicado(pedido, menu):
-    assert pedido.agregar_item(ItemPedido("Cafe con leche").desde_menu(menu))
-    assert pedido.agregar_item(ItemPedido("Cafe con leche").desde_menu(menu))
+    assert pedido.agregar_item(ItemPedido.desde_menu(menu, "Cafe con leche"))
+    assert pedido.agregar_item(ItemPedido.desde_menu(menu, "Cafe con leche"))
     
     assert pedido.cantidad_items() == 2
     assert pedido.valor() == 6000  # 3000 * 2
