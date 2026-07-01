@@ -10,15 +10,14 @@ from models.pedido import Pedido
 from models.menu import Menu
 from data.test_menu import dicc_precios
 
-def test2():
+def test():
     menu = Menu(dicc_precios)
     mesa = Mesa(1)
-    pedido = Pedido(mesa, menu)
-    pedido.agregar_item("Cafe con leche")
-    pedido.agregar_item("Croissant nutella")
-    pedido.quitar_item("Croissant nutella")
+    pedido = Pedido(mesa)
+    pedido.agregar_item()
+    print(pedido)
 
-def test():  
+def test2():  
 
     servilletero = Objeto("Servilletero")
     menus = list(map(lambda x: Objeto(f"menu[{x}]"), [1,2,3]))

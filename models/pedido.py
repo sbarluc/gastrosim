@@ -10,26 +10,19 @@ class Pedido():
     def cantidad_items(self):
         return len(self._items)
 
-    def agregar_item(self, menu, nombre):
-        item = ItemPedido(menu, nombre)
-        if item is not None:
-            self._items.append(item)
-            self._valor += item.valor()
-            return True
-        return False
+    def agregar_item(self, item):
+        if (item is None) or (item in self._items):
+            return False
+        self._items.append(item)
+        self._valor += item.valor()
+        return True
     
-    def quitar_item(self, nombre):
-        for item in self._items:
-            if item.nombre == nombre:
-                self._items.remove(item)
-                self._valor -= item.valor()
-                return True
-        return False
-    
-    def agregar_descuento(self, valor):
-        item_descuento = ItemPedido().descuento_neto(valor)
-        self._items.append(item_descuento)
-        self._valor -= valor
+    def quitar_item(self, item):
+        if (item is None) or (not item in self._items):
+            return False
+        self._items.remove(item)
+        self._valor -= item.valor()
+        return True
     
     def mesa_actual(self):
         return self._mesa_actual
@@ -39,3 +32,10 @@ class Pedido():
 
     def cambiar_mesa(self, mesa):
         self._mesa_actual = mesa
+
+    def __repr__(self):
+        return (
+            "\n".join([f"{i.nombre}: ${i.valor()}" for i in self._items]) + \
+            f"\n--------------------------------------" + \
+            f"\nTOTAL: ${self._valor}"
+        )

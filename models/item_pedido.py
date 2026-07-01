@@ -1,10 +1,10 @@
 from models.entidad import Entidad
 
 class ItemPedido(Entidad):
-    
-    def __init__(self, menu=None, nombre=""):
+
+    def __init__(self, nombre="", valor=0):
         self.nombre = nombre
-        self._valor = menu.precio(nombre) if menu is not None else 0
+        self._valor = valor
         self._entregado = False
 
     def fue_entregado(self):
@@ -16,7 +16,10 @@ class ItemPedido(Entidad):
     def entregar(self):
         self._entregado = True
 
-    def descuento(self, valor):
-        self.nombre = "Descuento"
-        self._valor = valor
-        return self
+    def desde_menu(self, menu):
+        self._valor = 0
+        precio = menu.precio(self.nombre)
+        if precio:
+            self._valor += precio
+            return self
+        return None

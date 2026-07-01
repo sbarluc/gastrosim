@@ -7,15 +7,15 @@ from models.pedido import Pedido
 
 @pytest.fixture
 def menu():
-    """Menu creado a partir del diccionario de precios de prueba."""
-    return Menu(dicc_precios())
+    return Menu(dicc_precios)
 @pytest.fixture
 def mesa():
-    """Mesa con capacidad para 2 personas."""
     return Mesa(2)
 @pytest.fixture
 def pedido(mesa):
     return Pedido(mesa)
+
+# ---------------------------------------------------------------------------------
 
 def test_menu_se_crea_con_diccionario(menu):
     assert menu.precio("Cafe con leche") == 3000
@@ -28,35 +28,63 @@ def test_menu_precio_inexistente(menu):
     assert menu.precio("Plato inexistente") is None
     assert menu.precio("") is None
 
+# ---------------------------------------------------------------------------------
 
+def test_item_pedido_se_crea_sin_menu():
+    item = ItemPedido("Salsa extra", 1500)
+    assert item.nombre == "Salsa extra"
+    assert item.valor() == 1500
+    item2 = ItemPedido("Descuento", -10000)
+    assert item2.nombre == "Descuento"
+    assert item2.valor() == -10000
 
 def test_item_pedido_se_crea_desde_menu(menu):
-    item = ItemPedido(menu, "Cafe con leche")
+    item = ItemPedido("Cafe con leche").desde_menu(menu)
     assert item.nombre == "Cafe con leche"
     assert item.valor() == 3000
-
-    item2 = ItemPedido(menu, "Croissant nutella")
-    assert item2.nombre == "Croissant nutella"
-    assert item2.valor() == 4000
+    item2 = ItemPedido("Lomo saltado").desde_menu(menu)
+    assert item2.nombre == "Lomo saltado"
+    assert item2.valor() == 9200
 
 def test_item_pedido_con_nombre_inexistente(menu):
-    item = ItemPedido(menu, "Plato inexistente")
-    assert item.nombre == "Plato inexistente"
-    assert item.valor() == None
-
-def test_item_pedido_sin_menu():
-    item = ItemPedido()
-    assert item.nombre == ""
-    assert item.valor() == 0
-
+    item = ItemPedido("Plato inexistente").desde_menu(menu)
+    assert item is None
 
 def test_item_pedido_entregar(menu):
-    item = ItemPedido(menu, "Cafe con leche")
+    item = ItemPedido("Salero")
     assert item.fue_entregado() is False
     item.entregar()
     assert item.fue_entregado() is True
 
-def test_item_pedido_descuento(menu):
-    item_descuento = ItemPedido().descuento(2000)
-    assert item_descuento.nombre == "Descuento"
-    assert item_descuento.valor() == 2000
+# ---------------------------------------------------------------------------------
+
+def test_agregar_item_a_pedido(pedido, menu):
+    assert pedido.cantidad_items() == 0
+    assert pedido.agregar_item(ItemPedido("Cafe con leche").desde_menu(menu))
+    assert pedido.cantidad_items() == 1
+    assert pedido.valor() == 3000
+
+
+def test_agregar_multiple_items(pedido, menu):
+    assert pedido.agregar_item(ItemPedido("Cafe con leche").desde_menu(menu))
+    assert pedido.agregar_item(ItemPedido("Salsa extra", 1500))
+    assert pedido.agregar_item(ItemPedido("Salmón a la plancha").desde_menu(menu))
+    
+    assert pedido.cantidad_items() == 3
+    assert pedido.valor() == 3000 + 1500 + 9800
+
+
+def test_agregar_item_inexistente(pedido, menu):
+    assert not pedido.agregar_item(ItemPedido("Tecito de ayahuasca").desde_menu(menu))
+    assert pedido.cantidad_items() == 0
+    assert pedido.valor() == 0
+
+
+def test_agregar_item_duplicado(pedido, menu):
+    assert pedido.agregar_item(ItemPedido("Cafe con leche").desde_menu(menu))
+    assert pedido.agregar_item(ItemPedido("Cafe con leche").desde_menu(menu))
+    
+    assert pedido.cantidad_items() == 2
+    assert pedido.valor() == 6000  # 3000 * 2
+
+
