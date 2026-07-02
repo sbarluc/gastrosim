@@ -28,6 +28,11 @@ def test_menu_precio_inexistente(menu):
     assert menu.precio("Plato inexistente") is None
     assert menu.precio("") is None
 
+def test_menu_ver_items(menu):
+    items_menu = menu.precios()
+    assert len(items_menu) == 15
+    assert items_menu["Risotto de hongos"] == 8200
+
 # ---------------------------------------------------------------------------------
 
 def test_item_pedido_se_crea_sin_menu():

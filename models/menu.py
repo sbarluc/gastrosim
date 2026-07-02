@@ -11,6 +11,9 @@ class Menu(Objeto):
         if nombre in self._precios:
             return self._precios[nombre]
         return None
+    
+    def precios(self):
+        return self._precios
 
     def __repr__(self):
         return self._precios
