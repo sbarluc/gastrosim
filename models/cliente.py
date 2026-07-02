@@ -57,10 +57,10 @@ class Cliente(Entidad):
         return True
     
     def quitar_item(self, item):
-        if item is None or item in self._items:
+        if item is None or item not in self._items:
             return False
-        self._items.append(item)
-        self._valor_total_items += item.valor()
+        self._items.remove(item)
+        self._valor_total_items -= item.valor()
         return True
 
     def items(self):

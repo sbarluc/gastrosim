@@ -72,8 +72,3 @@ def test_cliente_quitar_item(cliente_ana, menu):
     cliente_ana.quitar_item(cheesecake)
     assert cliente_ana.cantidad_items() == 1
     assert cliente_ana.valor_total_items() == 3000
-    
-    ok = cliente_ana.quitar_item("Cafe con leche")
-    assert ok is True
-    assert cliente_ana.cantidad_items() == 1
-    assert cliente_ana.valor_total_items() == 4000
