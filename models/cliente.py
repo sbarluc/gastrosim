@@ -13,7 +13,9 @@ class Cliente(Entidad):
         self._mesa_actual = None
         self._mesa_asignada = None
         self._sentado = False
-    
+        self._items = []
+        self._valor_total_items = 0
+
     def asignar_mesa(self, mesa):
         self._mesa_asignada = mesa
 
@@ -43,6 +45,29 @@ class Cliente(Entidad):
     
     def mesa_asignada(self):
         return self._mesa_asignada
+
+    def cantidad_items(self):
+        return len(self._items)
+    
+    def agregar_item(self, item):
+        if item is None or item in self._items:
+            return False
+        self._items.append(item)
+        self._valor_total_items += item.valor()
+        return True
+    
+    def quitar_item(self, item):
+        if item is None or item in self._items:
+            return False
+        self._items.append(item)
+        self._valor_total_items += item.valor()
+        return True
+
+    def items(self):
+        return self._items.copy()
+    
+    def valor_total_items(self):
+        return self._valor_total_items
 
     def __repr__(self):
         return self.nombre
