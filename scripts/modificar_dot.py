@@ -1,10 +1,16 @@
-import sys
 from pathlib import Path
+import glob
+import sys
 
-dot_path = Path(sys.argv[1])
+dots = glob.glob("**/*.dot", recursive=True)
+
+if not dots:
+    raise Exception("No se encontró ningún archivo .dot")
+
+dot_path = Path(dots[0])
+
+print("Usando:", dot_path)
 
 text = dot_path.read_text(encoding="utf-8")
-
-print(text[:500])
 
 dot_path.write_text(text, encoding="utf-8")

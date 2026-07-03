@@ -31,19 +31,19 @@ jobs:
         run: |
           pip install pylint
 
-      - name: Generar DOT con pyreverse
+      - name: Generar DOT
         run: |
-          mkdir -p build
+          mkdir -p build docs
 
           pyreverse models \
             -ASmy \
             -o dot \
-            -p Modelos \
-            -d build
+            -p Modelos
 
-      - name: Modificar el DOT
-        run: |
-          python scripts/modificar_dot.py
+          ls -R .
+
+      - name: Modificar DOT
+        run: python scripts/modificar_dot.py
 
       - name: Generar PNG
         run: |
