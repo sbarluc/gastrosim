@@ -2,8 +2,9 @@ from models.item_pedido import ItemPedido
 
 class Pedido():
     
-    def __init__(self, mesa):
+    def __init__(self, mesa=None, cliente=None):
         self._mesa_actual = mesa
+        self._cliente = cliente
         self._valor = 0
         self._items = []
 
@@ -24,6 +25,12 @@ class Pedido():
         self._valor -= item.valor()
         return True
     
+    def buscar_item(self, item):
+        return item if item in self._items else None
+    
+    def items(self):
+        return self._items.copy()
+
     def mesa_actual(self):
         return self._mesa_actual
     
