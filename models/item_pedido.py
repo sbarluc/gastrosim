@@ -6,12 +6,9 @@ class ItemPedido(Entidad):
         self.nombre = nombre
         self._valor = valor
         self._estados = set()
-
+    
 #------------------------------------------------------------------------------------
 
-    def valor(self):
-        return self._valor
-    
     def preparar_para_pedir(self):
         return self._estados.add("PARA_PEDIR")
     
@@ -36,6 +33,9 @@ class ItemPedido(Entidad):
 
     def sin_estado(self):
         return not self._estados
+
+    def valor(self):
+        return self._valor
 
     @classmethod
     def desde_menu(cls, menu, nombre):
