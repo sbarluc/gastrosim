@@ -6,7 +6,6 @@ on:
 
 jobs:
   diagram:
-    # Evita un bucle infinito cuando el propio workflow hace el commit
     if: github.actor != 'github-actions[bot]'
 
     runs-on: ubuntu-latest
@@ -32,16 +31,25 @@ jobs:
         run: |
           pip install pylint
 
-      - name: Generar diagrama
+      - name: Generar archivo DOT
         run: |
           mkdir -p docs
 
           pyreverse models \
-          -ASmy \
-          -o png \
-          -p Modelos
+            -ASmy \
+            -o dot \
+            -p Modelos
 
-          mv classes_Modelos.png docs/class_diagram.png
+      - name: Modificar el DOT
+        run: |
+          python scripts/modificar_dot.py
+
+      - name: Generar PNG
+        run: |
+          dot \
+            -Tpng \
+            classes_Modelos.dot \
+            -o docs/class_diagram.png
 
       - name: Commit del nuevo diagrama
         run: |
