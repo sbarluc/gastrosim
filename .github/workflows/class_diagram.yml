@@ -28,29 +28,18 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y graphviz
 
       - name: Instalar dependencias
-        run: |
-          pip install pylint
+        run: pip install pylint
 
-      - name: Generar DOT
+      - name: Generar diagrama directamente (PNG)
         run: |
-          mkdir -p build docs
+          mkdir -p docs
 
           pyreverse models \
             -ASmy \
-            -o dot \
+            -o png \
             -p Modelos
 
-          ls -R .
-
-      - name: Modificar DOT
-        run: python scripts/modificar_dot.py
-
-      - name: Generar PNG
-        run: |
-          dot \
-            -Tpng \
-            classes_Modelos.dot \
-            -o docs/class_diagram.png
+          mv classes_Modelos.png docs/class_diagram.png
 
       - name: Commit del nuevo diagrama
         run: |
