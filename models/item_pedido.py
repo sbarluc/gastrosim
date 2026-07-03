@@ -34,6 +34,9 @@ class ItemPedido(Entidad):
 
 #-------------------------------------------------------------------------------------
 
+    def sin_estado(self):
+        return not self._estados
+
     @classmethod
     def desde_menu(cls, menu, nombre):
         precio = menu.precio(nombre)
