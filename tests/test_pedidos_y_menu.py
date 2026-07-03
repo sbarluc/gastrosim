@@ -40,17 +40,21 @@ def test_item_pedido_se_crea_sin_menu():
     item = ItemPedido("Salsa extra", 1500)
     assert item.nombre == "Salsa extra"
     assert item.valor() == 1500
+    assert item.sin_estado()
     item2 = ItemPedido("Descuento", -10000)
     assert item2.nombre == "Descuento"
     assert item2.valor() == -10000
+    assert item2.sin_estado()
 
 def test_item_pedido_se_crea_desde_menu(menu):
     item = ItemPedido.desde_menu(menu, "Cafe con leche")
     assert item.nombre == "Cafe con leche"
     assert item.valor() == 3000
+    assert item.sin_estado()
     item2 = ItemPedido.desde_menu(menu, "Lomo saltado")
     assert item2.nombre == "Lomo saltado"
     assert item2.valor() == 9200
+    assert item2.sin_estado()
 
 def test_item_pedido_con_nombre_inexistente(menu):
     item = ItemPedido.desde_menu(menu, "Plato inexistente")
