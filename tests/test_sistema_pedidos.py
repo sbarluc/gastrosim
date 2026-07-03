@@ -82,3 +82,18 @@ def test_cliente_preparar_item_para_pedir(cliente_ana):
 
     cliente_ana.preparar_item_para_pedir(item)
     assert cliente_ana.items()[0].esta_para_pedir()
+
+#-----------------------------------------------------------------------
+
+def test_empleado_tomar_pedido_a_mesa(empleado, cliente_ana, cliente_pedro, mesa1):
+    empleado.asignar_mesa_a_cliente(cliente_ana, mesa1)
+    empleado.asignar_mesa_a_cliente(cliente_pedro, mesa1)
+    cliente_ana.sentarse_en(mesa1)
+    cliente_pedro.sentarse_en(mesa1)
+    
+    cliente_ana.agregar_item(ItemPedido("servilletero"))
+    cliente_pedro.agregar_item(ItemPedido("menu"))
+
+    assert empleado.tomar_pedido(mesa1)
+    assert empleado.pedido_para_mesa(mesa1).cantidad_items() == 2
+
