@@ -31,14 +31,15 @@ jobs:
         run: |
           pip install pylint
 
-      - name: Generar archivo DOT
+      - name: Generar DOT con pyreverse
         run: |
-          mkdir -p docs
+          mkdir -p build
 
           pyreverse models \
             -ASmy \
             -o dot \
-            -p Modelos
+            -p Modelos \
+            -d build
 
       - name: Modificar el DOT
         run: |

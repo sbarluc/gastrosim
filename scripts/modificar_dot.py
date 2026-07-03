@@ -1,9 +1,10 @@
+import sys
 from pathlib import Path
 
-archivo = Path("classes_Modelos.dot")
+dot_path = Path(sys.argv[1])
 
-texto = archivo.read_text(encoding="utf-8")
+text = dot_path.read_text(encoding="utf-8")
 
-print(texto)
+print(text[:500])
 
-archivo.write_text(texto, encoding="utf-8")
+dot_path.write_text(text, encoding="utf-8")
