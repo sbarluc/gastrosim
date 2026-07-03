@@ -2,32 +2,57 @@ name: Class Diagram
 
 on:
   push:
-    branches:
-      - develop
   workflow_dispatch:
 
 jobs:
   diagram:
+    # Evita un bucle infinito cuando el propio workflow hace el commit
+    if: github.actor != 'github-actions[bot]'
+
     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v4
+    permissions:
+      contents: write
 
-      - uses: actions/setup-python@v5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - run: sudo apt-get update
-      - run: sudo apt-get install -y graphviz
+      - name: Instalar Graphviz
+        run: sudo apt-get update && sudo apt-get install -y graphviz
 
-      - run: pip install pylint
+      - name: Instalar dependencias
+        run: |
+          pip install pylint
 
-      - run: |
+      - name: Generar diagrama
+        run: |
+          mkdir -p docs
+
           pyreverse models \
-            -o png \
-            -p Modelos
+          -ASmy \
+          -o png \
+          -p Modelos
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: diagrama-clases
-          path: classes_Modelos.png
+          mv classes_Modelos.png docs/class_diagram.png
+
+      - name: Commit del nuevo diagrama
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add docs/class_diagram.png
+
+          if git diff --cached --quiet; then
+            echo "No hubo cambios en el diagrama."
+          else
+            git commit -m "Actualizar diagrama de clases"
+            git push
+          fi
