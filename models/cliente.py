@@ -1,5 +1,6 @@
 from models.entidad import Entidad
 from models.tipo_entidad import TipoEntidad
+from models.pedido import Pedido
 
 class Cliente(Entidad):
     
@@ -13,8 +14,8 @@ class Cliente(Entidad):
         self._mesa_actual = None
         self._mesa_asignada = None
         self._sentado = False
-        self._items = []
-        self._valor_total_items = 0
+        
+        self._pedido = Pedido(cliente=self)
 
     def asignar_mesa(self, mesa):
         self._mesa_asignada = mesa
@@ -38,6 +39,7 @@ class Cliente(Entidad):
         self._mesa_actual.desocupar_silla(self)
         self._mesa_actual = None
         self._sentado = False
+
         return True
 
     def mesa_actual(self):
@@ -47,27 +49,24 @@ class Cliente(Entidad):
         return self._mesa_asignada
 
     def cantidad_items(self):
-        return len(self._items)
+        return self._pedido.cantidad_items()
     
     def agregar_item(self, item):
-        if item is None or item in self._items:
-            return False
-        self._items.append(item)
-        self._valor_total_items += item.valor()
-        return True
+        return self._pedido.agregar_item(item)
     
     def quitar_item(self, item):
-        if item is None or item not in self._items:
-            return False
-        self._items.remove(item)
-        self._valor_total_items -= item.valor()
-        return True
+        return self._pedido.quitar_item(item)
 
     def items(self):
-        return self._items.copy()
+        return self._pedido.items()
     
     def valor_total_items(self):
-        return self._valor_total_items
+        return self._pedido.valor()
+    
+    def preparar_item_para_pedir(self, item):
+        item = self._pedido.buscar_item(item)
+        if item:
+            item.preparar_para_pedir()
 
     def __repr__(self):
         return self.nombre
