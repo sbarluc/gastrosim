@@ -56,11 +56,27 @@ def test_item_pedido_con_nombre_inexistente(menu):
     item = ItemPedido.desde_menu(menu, "Plato inexistente")
     assert item is None
 
-def test_item_pedido_entregar(menu):
+#------------------------------------------------------------------------
+
+def test_item_pedido_preparar_para_pedir():
     item = ItemPedido("Salero")
-    assert item.fue_entregado() is False
+    assert not item.esta_para_pedir()
+    item.preparar_para_pedir()
+    assert item.esta_para_pedir()
+
+def test_item_pedido_pedir():
+    item = ItemPedido("Salero")
+    assert not item.fue_pedido()
+    item.pedir()
+    assert item.fue_pedido()
+
+#------------------------------------------------------------------------
+
+def test_item_pedido_entregar():
+    item = ItemPedido("Salero")
+    assert not item.fue_entregado()
     item.entregar()
-    assert item.fue_entregado() is True
+    assert item.fue_entregado()
 
 # ---------------------------------------------------------------------------------
 
