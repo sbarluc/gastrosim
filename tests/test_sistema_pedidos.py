@@ -72,3 +72,13 @@ def test_cliente_quitar_item(cliente_ana, menu):
     cliente_ana.quitar_item(cheesecake)
     assert cliente_ana.cantidad_items() == 1
     assert cliente_ana.valor_total_items() == 3000
+
+#-----------------------------------------------------------------------
+
+def test_cliente_preparar_item_para_pedir(cliente_ana):
+    item = ItemPedido("Cenicero")
+    cliente_ana.agregar_item(item)
+    assert not cliente_ana.items()[0].esta_para_pedir()
+
+    cliente_ana.preparar_item_para_pedir(item)
+    assert cliente_ana.items()[0].esta_para_pedir()
