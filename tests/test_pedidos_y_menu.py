@@ -70,6 +70,7 @@ def test_item_pedido_preparar_para_pedir():
 
 def test_item_pedido_pedir():
     item = ItemPedido("Salero")
+    item.preparar_para_pedir()
     assert not item.fue_pedido()
     item.pedir()
     assert item.fue_pedido()
@@ -112,9 +113,3 @@ def test_agregar_item_duplicado(pedido, menu):
     
     assert pedido.cantidad_items() == 2
     assert pedido.valor() == 6000  # 3000 * 2
-
-def test_item_pedir():
-    item = ItemPedido("Salero")
-    assert not item.fue_pedido()
-    item.pedir()
-    assert item.fue_pedido()
