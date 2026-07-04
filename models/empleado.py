@@ -70,14 +70,40 @@ class Empleado(Entidad):
         
         return True
 
+    def cerrar_pedido(self, mesa):
+        if mesa.id in self._pedidos:
+            del self._pedidos[mesa.id]
+            return True
+        return False
+
     def pedido_de_mesa(self, mesa):
-        return self._pedidos[mesa.id]
+        if mesa.id in self._pedidos:
+            return self._pedidos[mesa.id]
+        return None
 
     def cantidad_pedidos(self):
         return len(self._pedidos)
     
     def pedidos(self):
         return self._pedidos.copy()
+
+    def total_pedidos(self):
+        return sum([pedido.valor() for id, pedido in self._pedidos.items()])
+
+    def resumen_pedido(self, mesa):
+        if mesa.id in self._pedidos:
+            return {
+                "mesa": mesa,
+                "items": self._pedidos[mesa.id].items(),
+                "total": self._pedidos[mesa.id].valor()
+            }
+        return None
+
+    def entregar_item_de_pedido(self, mesa, item):
+        if mesa.id in self._pedidos:
+            item = self._pedidos[mesa.id].buscar_item(item)
+            if item:
+                item.entregar()
 
     def __repr__(self):
         return self.nombre
