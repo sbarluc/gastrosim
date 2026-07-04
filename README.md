@@ -4,4 +4,6 @@ Simulador de servicio gastronómico
 
 ## Diagrama de clases
 
-![Diagrama de clases](docs/class_diagram.png)
+<p align="center">
+  <img src="docs/class_diagram.png" width="1000">
+</p>
