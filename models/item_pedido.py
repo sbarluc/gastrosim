@@ -16,7 +16,9 @@ class ItemPedido(Entidad):
         return "PARA_PEDIR" in self._estados
     
     def pedir(self):
-        return self._estados.add("ESPERANDO")
+        if self.esta_para_pedir():
+            self._estados.remove("PARA_PEDIR") 
+            return self._estados.add("ESPERANDO")
 
     def fue_pedido(self):
         return "ESPERANDO" in self._estados

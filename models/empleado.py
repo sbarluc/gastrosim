@@ -1,6 +1,7 @@
 from models.inventario import Inventario
 from models.entidad import Entidad
 from models.tipo_entidad import TipoEntidad
+from models.pedido import Pedido
 
 class Empleado(Entidad):
 
@@ -13,6 +14,7 @@ class Empleado(Entidad):
         self._estado = "libre"
         self._posicion = None
         self._inventario = Inventario()
+        self._pedidos = {}
 
     def cargar_objeto(self, origen, objeto):
         if self._inventario.contiene(objeto):
@@ -41,6 +43,41 @@ class Empleado(Entidad):
 
     def inventario(self):
         return self._inventario
+
+    def crear_pedido(self, mesa):
+        if mesa and not mesa.id in self._pedidos:
+            pedido = Pedido(mesa)
+            if pedido:
+                self._pedidos[mesa.id] = Pedido(mesa)
+                return True
+        return False
+
+    def agregar_item_a_pedido(self, mesa, item):
+        if mesa.id in self._pedidos:
+            return self._pedidos[mesa.id].agregar_item(item)
+        return False
+
+    def tomar_pedido_a_mesa(self, mesa):
+        pedido_mesa = self.pedido_de_mesa(mesa)
+        if pedido_mesa is None:
+            return False
+        
+        for cliente in mesa.clientes_sentados():
+            for item in cliente.items():
+                if item.esta_para_pedir():
+                    if pedido_mesa.agregar_item(item):
+                        item.pedir()
+        
+        return True
+
+    def pedido_de_mesa(self, mesa):
+        return self._pedidos[mesa.id]
+
+    def cantidad_pedidos(self):
+        return len(self._pedidos)
+    
+    def pedidos(self):
+        return self._pedidos.copy()
 
     def __repr__(self):
         return self.nombre

@@ -25,6 +25,10 @@ class Pedido():
         self._valor -= item.valor()
         return True
     
+    def limpiar_items(self):
+        self._valor = 0
+        self._items = []
+
     def buscar_item(self, item):
         return item if item in self._items else None
     

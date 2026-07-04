@@ -56,6 +56,9 @@ class Cliente(Entidad):
     
     def quitar_item(self, item):
         return self._pedido.quitar_item(item)
+    
+    def limpiar_items(self):
+        self._pedido.limpiar_items()
 
     def items(self):
         return self._pedido.items()
