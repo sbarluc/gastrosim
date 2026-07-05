@@ -1,3 +1,3 @@
-from demos.demo_modelos import test
+from demos.demo_modelos import demo_completa
 
-test()
+demo_completa()
