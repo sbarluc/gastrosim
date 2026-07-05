@@ -41,6 +41,9 @@ class Empleado(Entidad):
     def asignar_mesa_a_cliente(self, cliente, mesa):
         cliente.asignar_mesa(mesa)
 
+    def desasignar_mesa_a_cliente(self, cliente, mesa):
+        cliente.desasignar_mesa(mesa)
+
     def inventario(self):
         return self._inventario
 

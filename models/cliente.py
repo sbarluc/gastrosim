@@ -20,6 +20,9 @@ class Cliente(Entidad):
     def asignar_mesa(self, mesa):
         self._mesa_asignada = mesa
 
+    def desasignar_mesa(self):
+        self._mesa_asignada = None
+
     def agregar_spec(self, spec):
         self._specs.append(spec)
 
