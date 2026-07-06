@@ -5,18 +5,6 @@ from models.tarea import Tarea
 def tarea_nueva():
     return Tarea("Limpiar mesa", 3)
 
-# Tarea
-# - id
-# - tipo
-# - objetivo
-# - duracion_total
-# - duracion_restante
-# - estado
-# + avanzar()
-# + iniciar()
-# + cancelar()
-# + completar()
-
 # Tests
 def test_crear_tarea():
     tarea = Tarea("Limpiar mesa", 3)
@@ -57,3 +45,13 @@ def test_tarea_no_completada_no_puede_avanzar(tarea_nueva):
     tarea_nueva.avanzar()
     tarea_nueva.avanzar()
     assert tarea_nueva.duracion_restante == 0
+
+def test_cancelar_tarea(tarea_nueva):
+    tarea_nueva.cancelar()
+    assert tarea_nueva.esta_cancelada()
+
+def test_tarea_cancelada_no_puede_avanzar(tarea_nueva):
+    tarea_nueva.iniciar()
+    tarea_nueva.cancelar()
+    tarea_nueva.avanzar()
+    assert tarea_nueva.duracion_restante == 3

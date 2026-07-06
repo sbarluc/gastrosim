@@ -21,11 +21,17 @@ class Tarea(Entidad):
         if self.duracion_restante == 0:
             self.estado = EstadoTarea.COMPLETADA
 
+    def cancelar(self):
+        self.estado = EstadoTarea.CANCELADA
+
     def esta_pendiente(self):
         return self.estado == EstadoTarea.PENDIENTE
+    
+    def esta_en_progreso(self):
+        return self.estado == EstadoTarea.EN_PROGRESO
     
     def esta_completada(self):
         return self.estado == EstadoTarea.COMPLETADA
     
-    def esta_en_progreso(self):
-        return self.estado == EstadoTarea.EN_PROGRESO
+    def esta_cancelada(self):
+        return self.estado == EstadoTarea.CANCELADA
