@@ -1,4 +1,4 @@
-import pytest
+import pytest # pyright: ignore[reportMissingImports]
 from models.estanteria import Estanteria
 from models.objeto import Objeto
 from models.tipo_entidad import TipoEntidad

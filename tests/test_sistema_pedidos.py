@@ -1,18 +1,6 @@
 import pytest # pyright: ignore[reportMissingImports]
 from models.mesa import Mesa
 from models.menu import Menu
-from models.pedido import Pedido
-from models.item_pedido import ItemPedido
-from models.cliente import Cliente
-from models.empleado import Empleado
-from data.test_menu import dicc_precios
-
-# tests/test_sistema_pedidos.py
-
-import pytest # pyright: ignore[reportMissingImports]
-from models.mesa import Mesa
-from models.menu import Menu
-from models.pedido import Pedido
 from models.item_pedido import ItemPedido
 from models.cliente import Cliente
 from models.empleado import Empleado
