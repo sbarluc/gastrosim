@@ -10,3 +10,5 @@ class TipoEntidad(Enum):
     ESTANTERIA = auto()
 
     OBJETO = auto()
+
+    TAREA = auto()
