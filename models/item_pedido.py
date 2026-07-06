@@ -1,4 +1,5 @@
 from models.entidad import Entidad
+from models.estado_item_pedido import EstadoItemPedido
 
 class ItemPedido(Entidad):
 
@@ -10,26 +11,26 @@ class ItemPedido(Entidad):
 #------------------------------------------------------------------------------------
 
     def preparar_para_pedir(self):
-        return self._estados.add("PARA_PEDIR")
+        return self._estados.add(EstadoItemPedido.PARA_PEDIR)
     
     def esta_para_pedir(self):
-        return "PARA_PEDIR" in self._estados
+        return EstadoItemPedido.PARA_PEDIR in self._estados
     
     def pedir(self):
         if self.esta_para_pedir():
-            self._estados.remove("PARA_PEDIR") 
-            return self._estados.add("ESPERANDO")
+            self._estados.remove(EstadoItemPedido.PARA_PEDIR) 
+            return self._estados.add(EstadoItemPedido.ESPERANDO)
 
     def fue_pedido(self):
-        return "ESPERANDO" in self._estados
+        return EstadoItemPedido.ESPERANDO in self._estados
     
 #-------------------------------------------------------------------------------------
     
     def entregar(self):
-        return self._estados.add("ENTREGADO")
+        return self._estados.add(EstadoItemPedido.ENTREGADO)
     
     def fue_entregado(self):
-        return "ENTREGADO" in self._estados
+        return EstadoItemPedido.ENTREGADO in self._estados
 
 #-------------------------------------------------------------------------------------
 
