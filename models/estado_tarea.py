@@ -4,3 +4,4 @@ class EstadoTarea(Enum):
     PENDIENTE = auto()
     EN_PROGRESO = auto()
     COMPLETADA = auto()
+    CANCELADA = auto()
