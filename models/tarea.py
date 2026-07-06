@@ -1,5 +1,6 @@
 from models.entidad import Entidad
 from models.tipo_entidad import TipoEntidad
+from models.estado_tarea import EstadoTarea
 
 class Tarea(Entidad):
 
@@ -9,22 +10,22 @@ class Tarea(Entidad):
         self.tipo = tipo
         self.duracion_total = duracion
         self.duracion_restante = duracion
-        self.estado = "PENDIENTE"
+        self.estado = EstadoTarea.PENDIENTE
 
     def iniciar(self):
-        self.estado = "EN_PROGRESO"
+        self.estado = EstadoTarea.EN_PROGRESO
 
     def avanzar(self):
         if self.esta_en_progreso():
             self.duracion_restante -= 1
         if self.duracion_restante == 0:
-            self.estado = "COMPLETADA"
+            self.estado = EstadoTarea.COMPLETADA
 
     def esta_pendiente(self):
-        return self.estado == "PENDIENTE"
+        return self.estado == EstadoTarea.PENDIENTE
     
     def esta_completada(self):
-        return self.estado == "COMPLETADA"
+        return self.estado == EstadoTarea.COMPLETADA
     
     def esta_en_progreso(self):
-        return self.estado == "EN_PROGRESO"
+        return self.estado == EstadoTarea.EN_PROGRESO
