@@ -1,17 +1,8 @@
-from models.objeto import Objeto
-from models.mesa import Mesa
-from models.estanteria import Estanteria
-from models.cliente import Cliente
-from models.empleado import Empleado
-from models.simulador import Simulador
-from models.item_pedido import ItemPedido
-from models.pedido import Pedido
-from models.menu import Menu
-from data.test_menu import dicc_precios
+from core.simulador import Simulador
 import os
 
 # -------------------------------------------------------------------------
-# DEMO DE INTEGRACIÓN (FUSIÓN DE TODOS TESTS)
+# DEMO DE INTEGRACIÓN (FUSIÓN DE TODOS LOS TESTS)
 # -------------------------------------------------------------------------
 
 def mostrar_evento(simulador, mensaje):
