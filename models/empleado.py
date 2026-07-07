@@ -17,24 +17,16 @@ class Empleado(Entidad):
         self._pedidos = {}
 
     def cargar_objeto(self, origen, objeto):
-        if self._inventario.contiene(objeto):
-            return False
-        
         objeto = origen.quitar_objeto(objeto)
         if objeto is None:
             return False
-        
         self._inventario.agregar_objeto(objeto)
         return True
 
     def dejar_objeto(self, destino, objeto):
-        if not self._inventario.contiene(objeto):
-            return False
-
         objeto = self._inventario.quitar_objeto(objeto)
         if objeto is None:
             return False
-        
         destino.agregar_objeto(objeto)
         return True
 
@@ -45,7 +37,7 @@ class Empleado(Entidad):
         cliente.desasignar_mesa(mesa)
 
     def inventario(self):
-        return self._inventario
+        return self._inventario.copy()
 
     def crear_pedido(self, mesa):
         if mesa and not mesa.id in self._pedidos:
@@ -58,6 +50,16 @@ class Empleado(Entidad):
     def agregar_item_a_pedido(self, mesa, item):
         if mesa.id in self._pedidos:
             return self._pedidos[mesa.id].agregar_item(item)
+        return False
+    
+    def quitar_item_a_pedido(self, mesa, item):
+        if mesa.id in self._pedidos:
+            return self._pedidos[mesa.id].quitar_item(item)
+        return False
+    
+    def limpiar_items_de_pedido(self, mesa):
+        if mesa.id in self._pedidos:
+            return self._pedidos[mesa.id].limpiar_items()
         return False
 
     def tomar_pedido_a_mesa(self, mesa):
@@ -108,5 +110,12 @@ class Empleado(Entidad):
             if item:
                 item.entregar()
 
-    def __repr__(self):
-        return self.nombre
+    def info(self):
+        pedidos = ""
+        for id in self._pedidos:
+            pedidos += (f"\nPedido[Mesa{id}]:\n{self._pedidos[id].info()}" if self._pedidos[id].cantidad_items()>0 else "")
+        return (
+            f"[{self.id}] {self.nombre}, {self.puesto}\n" + \
+            f"Inventario: {self._inventario.info()}\n" + \
+            pedidos
+        )
