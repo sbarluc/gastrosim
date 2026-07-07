@@ -37,11 +37,17 @@ class Contenedor(Entidad):
     
     def objetos(self):
         return self._objetos.copy()
+    
+    def obtener(self, nombre):
+        for objeto in self._objetos:
+            if objeto.nombre == nombre:
+                return objeto
+
 
     def puede_cargar(self, objeto):
         return self._carga_actual+objeto.peso <= self._carga_max
     
     def info(self):
         return (
-            f"Objetos: {[o.nombre for o in self._objetos]}"
+            f"Objetos: {[o.info() for o in self._objetos]}"
         )
