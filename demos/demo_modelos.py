@@ -6,6 +6,7 @@ from models.mesa import Mesa
 from models.estanteria import Estanteria
 from models.menu import Menu
 from data.test_menu import dicc_precios
+from models.tipo_entidad import TipoEntidad
 import os
 
 # -------------------------------------------------------------------------
@@ -15,39 +16,34 @@ import os
 def mostrar_evento(sim, mensaje):
     os.system("cls" if os.name == "nt" else "clear")
 
-    print("=" * 60)
+    print("="*60)
     print(f"{sim.reloj} | {mensaje}")
-    print("=" * 60 + "\n")
+    print("=" * 60)
 
     for tipo in sim.entidades:
-        print(f"{tipo.name}S:\n{'='*40}")
+        print(f"\n{tipo.name}S:")
         for entidad in sim.entidades[tipo]:
-            print(f"{entidad.info()}\n{'-'*40}\n")
+            print(f"{entidad.info()}")
 
     input("\nPresiona Enter para continuar...")
 
 def demo_completa():
-    cliente_ana = Cliente("Ana", 25)
-    cliente_damian = Cliente("Damian", 23)
-    cliente_arturo = Cliente("Arturo", 56)
-    empleado_seve = Empleado("Seve", "Mozo")
-    mesa_1 = Mesa(2)
-    menu_1, menu_2, menu_3, menu_4 = Menu(dicc_precios), Menu(dicc_precios), Menu(dicc_precios), Menu(dicc_precios)
-    estanteria_1 = Estanteria([menu_1, menu_2, menu_3, menu_4])
     sim = Simulador(hora=19, minuto=0)
 
-
-    sim.agregar_entidad(empleado_seve)
-    sim.agregar_entidad(mesa_1)
-    sim.agregar_entidad(estanteria_1)
+    sim.agregar_entidad(Estanteria([Menu(dicc_precios), Menu(dicc_precios), Menu(dicc_precios), Menu(dicc_precios)]))
+    sim.agregar_entidad(Mesa(2))
+    sim.agregar_entidad(Empleado("Seve", "Mozo"))
+    estanteria_1 = sim.obtener_entidades(TipoEntidad.ESTANTERIA)[0]
+    mesa_1 = sim.obtener_entidades(TipoEntidad.MESA)[0]
+    empleado_seve = sim.obtener_entidades(TipoEntidad.EMPLEADO)[0]
     mostrar_evento(sim, "Seve abre el local")
     for _ in range(5):
         sim.tick()
         mostrar_evento(sim, "Seve abre el local")
     
-
-    sim.agregar_entidad(cliente_ana)
-    sim.agregar_entidad(cliente_damian)
+    sim.agregar_entidad(Cliente("Ana", 25))
+    sim.agregar_entidad(Cliente("Damian", 23))
+    [cliente_ana, cliente_damian] = sim.obtener_entidades(TipoEntidad.CLIENTE)
     sim.tick()
     mostrar_evento(sim, "Ana y Damian llegan al local")
 
@@ -79,7 +75,9 @@ def demo_completa():
     mostrar_evento(sim, "Seve toma el pedido de la mesa 1")
 
 
+    menu_1 = estanteria_1.obtener("Menu")
     empleado_seve.cargar_objeto(estanteria_1, menu_1)
+    menu_2 = estanteria_1.obtener("Menu")
     empleado_seve.cargar_objeto(estanteria_1, menu_2)
     sim.tick()
     mostrar_evento(sim, "Seve carga dos menus de la estanteria")
