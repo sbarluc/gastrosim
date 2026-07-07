@@ -80,5 +80,5 @@ class Cliente(Entidad):
             f"Mesa actual: {self._mesa_actual.id if self._mesa_actual else '-'}" + \
             f" | Mesa asignada: {self._mesa_asignada.id if self._mesa_asignada else '-'}" + \
             (f" | Sentad@\n" if self._sentado else "") + \
-            (f"\nPedido: \n{self._pedido.info()}"  if self._pedido.cantidad_items() > 0 else "")
+            (f"Pedido: \n{self._pedido.info()}"  if self._pedido.cantidad_items() > 0 else "")
         )

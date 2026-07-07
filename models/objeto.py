@@ -9,5 +9,5 @@ class Objeto(Entidad):
         self.nombre = nombre
         self.peso = peso
 
-    def __repr__(self):
-        return self.nombre
+    def info(self):
+        return f"[{self.id}]{self.nombre}({self.peso}g)"

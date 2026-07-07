@@ -116,6 +116,6 @@ class Empleado(Entidad):
             pedidos += (f"\nPedido[Mesa{id}]:\n{self._pedidos[id].info()}" if self._pedidos[id].cantidad_items()>0 else "")
         return (
             f"[{self.id}] {self.nombre}, {self.puesto}\n" + \
-            f"Inventario: {self._inventario.info()}\n" + \
+            f"Inventario: {self._inventario.info()}" + \
             pedidos
         )

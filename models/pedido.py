@@ -46,7 +46,5 @@ class Pedido():
 
     def info(self):
         return (
-            "   |" + "\n   |".join([f"{i.nombre}: ${i.valor()}" for i in self._items]) + \
-            f"\n   |{'-'*20}" + \
-            f"\n   |TOTAL: ${self._valor}"
+            "   |" + "\n   |".join([f"{i.nombre}: ${i.valor()}" for i in self._items])
         )
