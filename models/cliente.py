@@ -74,5 +74,11 @@ class Cliente(Entidad):
         if item:
             item.preparar_para_pedir()
 
-    def __repr__(self):
-        return self.nombre
+    def info(self):
+        return (
+            f"[{self.id}] {self.nombre}, {self.edad} años\n" + \
+            f"Mesa actual: {self._mesa_actual.id if self._mesa_actual else '-'}" + \
+            f" | Mesa asignada: {self._mesa_asignada.id if self._mesa_asignada else '-'}" + \
+            (f" | Sentad@\n" if self._sentado else "") + \
+            (f"\nPedido: \n{self._pedido.info()}"  if self._pedido.cantidad_items() > 0 else "")
+        )
