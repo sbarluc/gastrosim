@@ -1,24 +1,9 @@
-from models.tipo_entidad import TipoEntidad
 from models.reloj import Reloj
-
-# Simulador:
-
-# - reloj
-# - entidades
-# - tareas
-
-# + agregar_entidad()
-# + remover_entidad()
-
-# + agregar_tarea()
-# + remover_tarea()
-
-# + tick()
 
 class Simulador:
 
-    def __init__(self):
-        self.reloj = Reloj()
+    def __init__(self, hora=0, minuto=0):
+        self.reloj = Reloj(hora,minuto)
         self.entidades = {}
         self.tareas = []
 
