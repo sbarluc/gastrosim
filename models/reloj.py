@@ -15,3 +15,9 @@ class Reloj():
 
     def _minuto_en_rango(self, minuto):
         return (minuto <= 59 and minuto >= 0)
+    
+    def __repr__(self):
+        return (
+            f"{0 if self.hora<10 else ''}{self.hora}:" + \
+            f"{0 if self.minuto<10 else ''}{self.minuto}"
+        )

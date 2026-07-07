@@ -6,5 +6,5 @@ class Inventario(Contenedor):
     def __init__(self, objetos=None, carga_max=float("inf")):
         super().__init__(TipoEntidad.INVENTARIO, objetos, carga_max)
     
-    def __repr__(self):
+    def info(self):
         return (f"{[o.nombre for o in self._objetos]}")

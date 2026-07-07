@@ -46,5 +46,9 @@ class Mesa(Contenedor):
     def clientes_sentados(self):
         return self._clientes_sentados.copy()
 
-    def __repr__(self):
-        return f"Mesa{self.id}"
+    def info(self):
+        return (
+            f"[{self.id}] ({self.cantidad_sentados()}/{self.cantidad_sillas})\n" + \
+            f"Clientes sentados: {[cliente.nombre for cliente in self._clientes_sentados]}\n" + \
+            f"{super().info()}"
+        )

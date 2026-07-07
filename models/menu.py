@@ -14,6 +14,3 @@ class Menu(Objeto):
     
     def precios(self):
         return self._precios
-
-    def __repr__(self):
-        return self._precios

@@ -15,8 +15,7 @@ class Contenedor(Entidad):
             self._carga_actual = sum([objeto.peso for objeto in self._objetos])
 
     def agregar_objeto(self, objeto):
-        if objeto in self._objetos or \
-            not self.puede_cargar(objeto):
+        if objeto in self._objetos or not self.puede_cargar(objeto):
             return False
         self._objetos.append(objeto)
         self._carga_actual += objeto.peso
@@ -38,6 +37,11 @@ class Contenedor(Entidad):
     
     def objetos(self):
         return self._objetos.copy()
-    
+
     def puede_cargar(self, objeto):
         return self._carga_actual+objeto.peso <= self._carga_max
+    
+    def info(self):
+        return (
+            f"Objetos: {[o.nombre for o in self._objetos]}"
+        )
