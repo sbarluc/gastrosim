@@ -47,32 +47,42 @@ def demo_completa():
     sim.tick()
     mostrar_evento(sim, "Ana y Damian llegan al local")
 
-    ################ OUTDATED ###################################
-    # empleado_seve.asignar_mesa_a_cliente(cliente_ana, mesa_1)
-    # empleado_seve.asignar_mesa_a_cliente(cliente_damian, mesa_1)
-    # sim.tick()
-    # mostrar_evento(sim, "Seve asigna a Ana y Damian a la mesa 1")
+    cliente_ana.asignar_mesa(mesa_1)
+    cliente_damian.asignar_mesa(mesa_1)
+    sim.tick()
+    mostrar_evento(sim, "Se le asigna a Ana y Damian la mesa 1")
 
 
-    # cliente_ana.sentarse_en(mesa_1)
-    # cliente_damian.sentarse_en(mesa_1)
-    # for _ in range(3):
-    #     sim.tick()
-    #     mostrar_evento(sim, "Ana y Damian se sientan en la mesa 1")
+    cliente_ana.sentarse_en_mesa(mesa_1)
+    cliente_damian.sentarse_en_mesa(mesa_1)
+    for _ in range(3):
+        sim.tick()
+        mostrar_evento(sim, "Ana y Damian se sientan en la mesa 1")
 
 
-    # item_menu_1, item_menu_2 = ItemPedido("Menú"), ItemPedido("Menú")
-    # cliente_ana.agregar_item(item_menu_1)
-    # cliente_ana.preparar_item_para_pedir(item_menu_1)
-    # cliente_damian.agregar_item(item_menu_2)
-    # cliente_damian.preparar_item_para_pedir(item_menu_2)
-    # sim.tick()
-    # mostrar_evento(sim, "Ana y Damian piden menus")
+    item_menu_1, item_menu_2 = ItemPedido("Menú"), ItemPedido("Menú")
+    ### Esto lo va a hacer internamente cada cliente en su metodo tick()
+    cliente_ana._pedido.agregar_item(item_menu_1)
+    cliente_ana._pedido.buscar_item(item_menu_1).preparar_para_pedir()
+    cliente_damian._pedido.agregar_item(item_menu_2)
+    cliente_damian._pedido.buscar_item(item_menu_2).preparar_para_pedir()
+    sim.tick()
+    mostrar_evento(sim, "Ana y Damian piden menus")
 
-    # empleado_seve.crear_pedido(mesa_1)
-    # empleado_seve.tomar_pedido_a_mesa(mesa_1)
-    # sim.tick()
-    # mostrar_evento(sim, "Seve toma el pedido de la mesa 1")
+    item_agua = ItemPedido("Vaso de agua")
+    cliente_ana._pedido.agregar_item(item_agua)
+    sim.tick()
+    mostrar_evento(sim, "Damian piensa en un vaso de agua")
+
+    ### Esto lo va a hacer internamente el empleado en su metodo tick()
+    empleado_seve.crear_pedido(mesa_1)
+    for cliente in mesa_1.clientes_sentados():
+        items = cliente.tomar_pedido()
+        for item in items:
+            empleado_seve._pedidos[mesa_1.id].agregar_item(item)
+        sim.tick()
+        mostrar_evento(sim, f"Seve toma el pedido de {cliente.nombre}")
+        
 
 
     # menu_1 = estanteria_1.obtener("Menu")
