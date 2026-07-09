@@ -10,12 +10,15 @@ class Cliente(Entidad):
         self.nombre = nombre
         self.edad = edad
         
-        self._specs = specs if specs is not None else []
-        self._mesa_actual = None
+        self.mesa_actual = None
+
         self._mesa_asignada = None
         self._sentado = False
         
         self._pedido = Pedido(cliente=self)
+
+    def esta_sentado(self):
+        return self._sentado
 
     def asignar_mesa(self, mesa):
         self._mesa_asignada = mesa
@@ -23,62 +26,36 @@ class Cliente(Entidad):
     def desasignar_mesa(self):
         self._mesa_asignada = None
 
-    def agregar_spec(self, spec):
-        self._specs.append(spec)
-
-    def sentarse_en(self, mesa):
-        if (not mesa.tiene_lugar() or self._sentado):
+    def sentarse_en_mesa(self, mesa):
+        if (not mesa.tiene_lugar() or self.esta_sentado()):
             return False
         
         mesa.ocupar_silla(self)
         self._sentado = True
-        self._mesa_actual = mesa
+        self.mesa_actual = mesa
         return True
 
     def pararse(self):
-        if self._mesa_actual is None:
+        if self.mesa_actual is None:
             return False
 
-        self._mesa_actual.desocupar_silla(self)
-        self._mesa_actual = None
+        self.mesa_actual.desocupar_silla(self)
+        self.mesa_actual = None
         self._sentado = False
 
         return True
-
-    def mesa_actual(self):
-        return self._mesa_actual
     
     def mesa_asignada(self):
         return self._mesa_asignada
 
-    def cantidad_items(self):
-        return self._pedido.cantidad_items()
-    
-    def agregar_item(self, item):
-        return self._pedido.agregar_item(item)
-    
-    def quitar_item(self, item):
-        return self._pedido.quitar_item(item)
-    
-    def limpiar_items(self):
-        self._pedido.limpiar_items()
-
-    def items(self):
-        return self._pedido.items()
-    
-    def valor_total_items(self):
-        return self._pedido.valor()
-    
-    def preparar_item_para_pedir(self, item):
-        item = self._pedido.buscar_item(item)
-        if item:
-            item.preparar_para_pedir()
+    def pedido(self):
+        return self._pedido
 
     def info(self):
         return (
             f"[{self.id}] {self.nombre}, {self.edad} años\n" + \
-            f"Mesa actual: {self._mesa_actual.id if self._mesa_actual else '-'}" + \
+            f"Mesa actual: {self.mesa_actual.id if self.mesa_actual else '-'}" + \
             f" | Mesa asignada: {self._mesa_asignada.id if self._mesa_asignada else '-'}" + \
-            (f" | Sentad@\n" if self._sentado else "") + \
+            (f" | Sentad@\n" if self.esta_sentado() else "") + \
             (f"Pedido: \n{self._pedido.info()}"  if self._pedido.cantidad_items() > 0 else "")
         )
