@@ -31,9 +31,12 @@ class Pedido():
 
     def buscar_item(self, item):
         return item if item in self._items else None
-    
+
     def items(self):
         return self._items.copy()
+    
+    def items_para_pedir(self):
+        return [item for item in self._items.copy() if item.esta_para_pedir()]
 
     def mesa_actual(self):
         return self._mesa_actual
