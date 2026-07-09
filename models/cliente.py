@@ -49,7 +49,7 @@ class Cliente(Entidad):
         return self._mesa_asignada
 
     def pedido(self):
-        return self._pedido.items()
+        return self._pedido
     
     def tomar_pedido(self):
         return self._pedido.items_para_pedir()
