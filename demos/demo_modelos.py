@@ -35,88 +35,101 @@ def demo_completa():
     sim.agregar_entidad(Empleado("Seve", "Mozo"))
     estanteria_1 = sim.obtener_entidades(TipoEntidad.ESTANTERIA)[0]
     mesa_1 = sim.obtener_entidades(TipoEntidad.MESA)[0]
-    empleado_seve = sim.obtener_entidades(TipoEntidad.EMPLEADO)[0]
-    mostrar_evento(sim, "Seve abre el local")
+    empleado_1 = sim.obtener_entidades(TipoEntidad.EMPLEADO)[0]
+    mostrar_evento(sim, f"{empleado_1} abre el local")
     for _ in range(5):
         sim.tick()
-        mostrar_evento(sim, "Seve abre el local")
+        mostrar_evento(sim, f"{empleado_1} abre el local")
     
     sim.agregar_entidad(Cliente("Ana", 25))
     sim.agregar_entidad(Cliente("Damian", 23))
-    [cliente_ana, cliente_damian] = sim.obtener_entidades(TipoEntidad.CLIENTE)
+    [cliente_1, cliente_2] = sim.obtener_entidades(TipoEntidad.CLIENTE)
     sim.tick()
-    mostrar_evento(sim, "Ana y Damian llegan al local")
+    mostrar_evento(sim, f"{cliente_1} y {cliente_2} llegan al local")
 
-    cliente_ana.asignar_mesa(mesa_1)
-    cliente_damian.asignar_mesa(mesa_1)
+    cliente_1.asignar_mesa(mesa_1)
+    cliente_2.asignar_mesa(mesa_1)
     sim.tick()
-    mostrar_evento(sim, "Se le asigna a Ana y Damian la mesa 1")
+    mostrar_evento(sim, f"Se asigna a {cliente_1} y {cliente_2} a {mesa_1}")
 
 
-    cliente_ana.sentarse_en_mesa(mesa_1)
-    cliente_damian.sentarse_en_mesa(mesa_1)
+    cliente_1.sentarse_en_mesa(mesa_1)
+    cliente_2.sentarse_en_mesa(mesa_1)
     for _ in range(3):
         sim.tick()
-        mostrar_evento(sim, "Ana y Damian se sientan en la mesa 1")
+        mostrar_evento(sim, f"{cliente_1} y {cliente_2} se sientan en {mesa_1}")
 
 
     item_menu_1, item_menu_2 = ItemPedido("Menú"), ItemPedido("Menú")
     ### Esto lo va a hacer internamente cada cliente en su metodo tick()
-    cliente_ana._pedido.agregar_item(item_menu_1)
-    cliente_ana._pedido.buscar_item(item_menu_1).preparar_para_pedir()
-    cliente_damian._pedido.agregar_item(item_menu_2)
-    cliente_damian._pedido.buscar_item(item_menu_2).preparar_para_pedir()
+    cliente_1._pedido.agregar_item(item_menu_1)
+    cliente_1._pedido.buscar_item(item_menu_1).preparar_para_pedir()
+    cliente_2._pedido.agregar_item(item_menu_2)
+    cliente_2._pedido.buscar_item(item_menu_2).preparar_para_pedir()
     sim.tick()
-    mostrar_evento(sim, "Ana y Damian piden menus")
+    mostrar_evento(sim, f"{cliente_1} pide {item_menu_1} y {cliente_2} pide {item_menu_2}")
 
     item_agua = ItemPedido("Vaso de agua")
-    cliente_ana._pedido.agregar_item(item_agua)
+    cliente_1._pedido.agregar_item(item_agua)
     sim.tick()
-    mostrar_evento(sim, "Damian piensa en un vaso de agua")
+    mostrar_evento(sim, f"{cliente_2} piensa en {item_agua}")
 
     ### Esto lo va a hacer internamente el empleado en su metodo tick()
-    empleado_seve.crear_pedido(mesa_1)
+    empleado_1.crear_pedido(mesa_1)
     for cliente in mesa_1.clientes_sentados():
         items = cliente.tomar_pedido()
         for item in items:
-            empleado_seve._pedidos[mesa_1.id].agregar_item(item)
+            empleado_1._pedidos[mesa_1.id].agregar_item(item)
         sim.tick()
-        mostrar_evento(sim, f"Seve toma el pedido de {cliente.nombre}")
-        
+        mostrar_evento(sim, f"{empleado_1} toma el pedido de {cliente}")
 
+    menu_1 = estanteria_1.obtener_objeto("Menu")
+    empleado_1.cargar_objeto_desde(menu_1, estanteria_1)
+    menu_2 = estanteria_1.obtener_objeto("Menu")
+    empleado_1.cargar_objeto_desde(menu_2, estanteria_1)
+    sim.tick()
+    mostrar_evento(sim, f"{empleado_1} carga {menu_1} y {menu_2} de {estanteria_1}")
 
-    # menu_1 = estanteria_1.obtener("Menu")
-    # empleado_seve.cargar_objeto(estanteria_1, menu_1)
-    # menu_2 = estanteria_1.obtener("Menu")
-    # empleado_seve.cargar_objeto(estanteria_1, menu_2)
-    # sim.tick()
-    # mostrar_evento(sim, "Seve carga dos menus de la estanteria")
+    empleado_1.dejar_objeto_en(menu_1, mesa_1)
+    empleado_1.dejar_objeto_en(menu_2, mesa_1)
+    sim.tick()
+    mostrar_evento(sim, f"{empleado_1} deja {menu_1} y {menu_2} en {mesa_1}")
 
-    # empleado_seve.dejar_objeto(mesa_1, menu_1)
-    # empleado_seve.dejar_objeto(mesa_1, menu_2)
-    # sim.tick()
-    # mostrar_evento(sim, "Seve deja dos menus en la mesa 1")
+    empleado_1.pedidos()[mesa_1.id].limpiar_items()
+    cliente_1.pedido().limpiar_items()
+    cliente_2.pedido().limpiar_items()
+    sim.tick()
+    mostrar_evento(sim, f"{empleado_1} limpia el pedido de {mesa_1}\n{cliente_1} y {cliente_2} limpian sus pedidos")
+    # LIMPIAN LOS PEDIDOS PORQUE EL TIPO DE ITEMPEDIDO NO ERA IMPORTANTE
 
-    # empleado_seve.limpiar_items_de_pedido(mesa_1)
-    # cliente_ana.quitar_item(item_menu_1)
-    # cliente_damian.quitar_item(item_menu_2)
-    # for _ in range(5):
-    #     sim.tick()
-    #     mostrar_evento(sim, "Ana y Damian están viendo el menu")
+    for _ in range(4):
+        sim.tick()
+        mostrar_evento(sim, f"{cliente_1} esta viendo {menu_1} y {cliente_2} esta viendo {menu_2}")
 
-    # item_cesar = ItemPedido.desde_menu(menu_1, "Ensalada César con pollo")
-    # cliente_ana.agregar_item(item_cesar)
-    # cliente_ana.preparar_item_para_pedir(item_cesar)
-    # item_lomo = ItemPedido.desde_menu(menu_1, "Lomo saltado")
-    # cliente_damian.agregar_item(item_lomo)
-    # cliente_damian.preparar_item_para_pedir(item_lomo)
-    # sim.tick()
-    # mostrar_evento(sim, "Ana y Damian ya saben que van a pedir")
     
-    # empleado_seve.crear_pedido(mesa_1)
-    # empleado_seve.tomar_pedido_a_mesa(mesa_1)
+    item_coca_1 = ItemPedido("Coca cola", 2500)
+    item_coca_2 = ItemPedido("Coca cola", 2500)
+    cliente_1.pedido().agregar_item(item_coca_1)
+    cliente_1.pedido().preparar_item_para_pedir(item_coca_1)
+    cliente_1.pedido().agregar_item(item_coca_2)
+    cliente_1.pedido().preparar_item_para_pedir(item_coca_2)
+    for _ in range(1):
+        sim.tick()
+        mostrar_evento(sim, f"{cliente_1} pide {item_coca_1} y {cliente_2} pide {item_coca_2}")
+
+    item_cesar = ItemPedido.desde_menu(menu_1, "Ensalada César con pollo")
+    cliente_1.pedido().agregar_item(item_cesar)
+    cliente_1.pedido().preparar_item_para_pedir(item_cesar)
+    item_lomo = ItemPedido.desde_menu(menu_1, "Lomo saltado")
+    cliente_2.pedido().agregar_item(item_lomo)
+    cliente_2.pedido().preparar_item_para_pedir(item_lomo)
+    sim.tick()
+    mostrar_evento(sim, f"Ana y Damian ya saben que van a pedir")
+    
+    # empleado_1.crear_pedido(mesa_1)
+    # empleado_1.tomar_pedido_a_mesa(mesa_1)
     # sim.tick()
-    # mostrar_evento(sim, "Seve toma el pedido de la mesa 1")
+    # mostrar_evento(sim, f"{empleado_1} toma el pedido de la mesa 1")
 
 
 if __name__ == "__main__":
