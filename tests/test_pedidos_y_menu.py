@@ -72,7 +72,7 @@ def test_item_pedido_pedir():
     item = ItemPedido("Salero")
     item.preparar_para_pedir()
     assert not item.fue_pedido()
-    item.pedir()
+    item.marcar_como_pedido()
     assert item.fue_pedido()
 
 #------------------------------------------------------------------------
