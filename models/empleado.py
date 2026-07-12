@@ -6,13 +6,27 @@ from models.pedido import Pedido
 class Empleado(Entidad):
 
     def __init__(self, nombre, puesto): 
-        super().__init__(TipoEntidad.EMPLEADO)
+        super().__init__(TipoEntidad.EMPLEADO, nombre=nombre)
         
         self.nombre = nombre
         self.puesto = puesto
 
         self._inventario = Inventario()
         self._pedidos = {}
+
+    def cargar_objeto_desde(self, objeto, origen):
+        _objeto = origen.quitar_objeto(objeto)
+        if _objeto is None:
+            return False
+        self._inventario.agregar_objeto(_objeto)
+        return True
+
+    def dejar_objeto_en(self, objeto, destino):
+        _objeto = self._inventario.quitar_objeto(objeto)
+        if _objeto is None:
+            return False
+        destino.agregar_objeto(_objeto)
+        return True
 
     def inventario(self):
         return self._inventario
@@ -60,21 +74,9 @@ class Empleado(Entidad):
     
     
     
-    
+
     # ### OUTDATED
-    # def cargar_objeto(self, origen, objeto):
-    #     objeto = origen.quitar_objeto(objeto)
-    #     if objeto is None:
-    #         return False
-    #     self._inventario.agregar_objeto(objeto)
-    #     return True
-    # ### OUTDATED
-    # def dejar_objeto(self, destino, objeto):
-    #     objeto = self._inventario.quitar_objeto(objeto)
-    #     if objeto is None:
-    #         return False
-    #     destino.agregar_objeto(objeto)
-    #     return True
+
     # ### OUTDATED
     # def asignar_mesa_a_cliente(self, cliente, mesa):
     #     cliente.asignar_mesa(mesa)

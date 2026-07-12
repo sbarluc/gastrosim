@@ -2,10 +2,9 @@ from models.entidad import Entidad
 
 class Contenedor(Entidad):
 
-    def __init__(self, tipo, objetos, carga_max, nombre=""):
-        super().__init__(tipo)
+    def __init__(self, tipo, objetos, carga_max, nombre=None):
+        super().__init__(tipo, nombre=nombre)
 
-        self.nombre = nombre
         self._carga_actual = 0
         self._carga_max = carga_max
 
@@ -38,9 +37,11 @@ class Contenedor(Entidad):
     def objetos(self):
         return self._objetos.copy()
     
-    def obtener(self, nombre):
+    def obtener_objeto(self, nombre=None, id=None):
         for objeto in self._objetos:
-            if objeto.nombre == nombre:
+            if id and objeto.id == id:
+                return objeto
+            if nombre and objeto.nombre == nombre:
                 return objeto
 
 

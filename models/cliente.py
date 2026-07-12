@@ -5,16 +5,12 @@ from models.pedido import Pedido
 class Cliente(Entidad):
     
     def __init__(self, nombre, edad, specs=None):
-        super().__init__(TipoEntidad.CLIENTE)
+        super().__init__(TipoEntidad.CLIENTE, nombre=nombre)
 
-        self.nombre = nombre
         self.edad = edad
-        
         self.mesa_actual = None
-
         self._mesa_asignada = None
         self._sentado = False
-        
         self._pedido = Pedido(cliente=self)
 
     def esta_sentado(self):

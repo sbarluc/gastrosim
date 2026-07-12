@@ -7,4 +7,4 @@ class Inventario(Contenedor):
         super().__init__(TipoEntidad.INVENTARIO, objetos, carga_max)
     
     def info(self):
-        return (f"{[o.nombre for o in self._objetos]}")
+        return (f"{[o.info() for o in self._objetos]}")

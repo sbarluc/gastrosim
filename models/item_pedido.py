@@ -1,10 +1,12 @@
 from models.entidad import Entidad
+from models.tipo_entidad import TipoEntidad
 from models.estado_item_pedido import EstadoItemPedido
 
 class ItemPedido(Entidad):
 
-    def __init__(self, nombre="", valor=0):
-        self.nombre = nombre
+    def __init__(self, nombre=None, valor=0):
+        super().__init__(TipoEntidad.ITEM_PEDIDO, nombre=nombre)
+
         self._valor = valor
         self._estados = set()
     
@@ -16,7 +18,7 @@ class ItemPedido(Entidad):
     def esta_para_pedir(self):
         return EstadoItemPedido.PARA_PEDIR in self._estados
     
-    def pedir(self):
+    def marcar_como_pedido(self):
         if self.esta_para_pedir():
             self._estados.remove(EstadoItemPedido.PARA_PEDIR) 
             return self._estados.add(EstadoItemPedido.ESPERANDO)
@@ -39,7 +41,14 @@ class ItemPedido(Entidad):
 
     def valor(self):
         return self._valor
+    
+#--------------------------------------------------
 
+    def __copy__(self):
+        copia = ItemPedido(self.nombre, self.valor)
+        copia._estados = self._estados
+        return copia
+    
     @classmethod
     def desde_menu(cls, menu, nombre):
         precio = menu.precio(nombre)

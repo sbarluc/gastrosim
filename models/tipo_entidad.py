@@ -11,4 +11,5 @@ class TipoEntidad(Enum):
 
     OBJETO = auto()
 
+    ITEM_PEDIDO = auto()
     TAREA = auto()

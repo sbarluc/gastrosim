@@ -35,6 +35,16 @@ class Pedido():
     def items(self):
         return self._items.copy()
     
+    def preparar_item_para_pedir(self, item):
+        if item is None or item not in self._items:
+            return False
+        item.preparar_para_pedir()
+
+    def maracar_item_como_pedido(self, item):
+        if item is None or item not in self._items:
+            return False
+        item.marcar_como_pedido()
+    
     def items_para_pedir(self):
         return [item for item in self._items.copy() if item.esta_para_pedir()]
 
