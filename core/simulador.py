@@ -1,4 +1,5 @@
 from models.reloj import Reloj
+from models.tipo_entidad import TipoEntidad
 
 class Simulador:
 
@@ -6,7 +7,7 @@ class Simulador:
         self.reloj = Reloj(hora,minuto)
         self.entidades = {}
         self.tareas = []
-
+        
     def agregar_entidad(self, entidad):
         tipo = entidad.tipo
         if tipo not in self.entidades:
@@ -34,5 +35,16 @@ class Simulador:
             return True
         return False
     
+    def lista_entidades(self):
+        return [entidad for v in self.entidades.values() for entidad in v]
+
+    def buscar_mesa_libre(self):
+        for mesa in self.obtener_entidades(TipoEntidad.MESA):
+            if not mesa.esta_ocupada():
+                return mesa
+
     def tick(self):
         self.reloj.avanzar()
+        for entidad in self.lista_entidades():
+            entidad.tick(self)
+            

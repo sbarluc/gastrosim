@@ -6,6 +6,9 @@ class Entidad:
         self.id = self.__class__.siguiente_id
         self.__class__.siguiente_id += 1
         self.nombre = nombre if nombre else ""
-    
+
+    def tick(self, sim):
+        pass
+
     def __repr__(self):
         return f"<{self.id}|{self.tipo.name}{f':{self.nombre}' if self.nombre else ''}>"

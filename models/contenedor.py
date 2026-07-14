@@ -43,6 +43,7 @@ class Contenedor(Entidad):
                 return objeto
             if nombre and objeto.nombre == nombre:
                 return objeto
+        return None
 
 
     def puede_cargar(self, objeto):
