@@ -32,6 +32,9 @@ class Cliente(Entidad):
     def lista_estados(self):
         return [e.name for e in self.estados]
 
+    def esta_sentado(self):
+        return self.tiene_estado(EstadoCliente.SENTADO)
+
     # Mesa
 
     def asignar_mesa(self, mesa):
