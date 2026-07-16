@@ -14,6 +14,10 @@ class Reloj():
                 self.minuto = 0
                 self.hora += 1 if self._hora_en_rango(self.hora + 1) else -23
 
+    def avanzar_minuto(self):
+        for _ in range(60):
+            self.avanzar()
+
     def _hora_en_rango(self, hora):
         return (hora <= 23 and hora >= 0)
 
