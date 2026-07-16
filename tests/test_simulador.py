@@ -87,18 +87,19 @@ def test_tick_avanza_reloj(sim):
 
     for _ in range(60):
         sim.tick()
-        assert sim.reloj.hora == 0
-        assert sim.reloj.minuto == 1
-        assert sim.reloj.segundo == 1
+    assert sim.reloj.hora == 0
+    assert sim.reloj.minuto == 1
+    assert sim.reloj.segundo == 1
 
     for _ in range(60*60):
         sim.tick()
-        assert sim.reloj.hora == 1
-        assert sim.reloj.minuto == 1
-        assert sim.reloj.segundo == 1
+    assert sim.reloj.hora == 1
+    assert sim.reloj.minuto == 1
+    assert sim.reloj.segundo == 1
 
     for _ in range(60*60*24):
-        assert sim.reloj.hora == 1
-        assert sim.reloj.minuto == 1
-        assert sim.reloj.segundo == 1
+        sim.tick()
+    assert sim.reloj.hora == 1
+    assert sim.reloj.minuto == 1
+    assert sim.reloj.segundo == 1
         
