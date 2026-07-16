@@ -78,17 +78,27 @@ def test_agregar_tarea(sim, tarea_1):
 def test_tick_avanza_reloj(sim):
     assert sim.reloj.hora == 0
     assert sim.reloj.minuto == 0
+    assert sim.reloj.segundo == 0
 
     sim.tick()
-    assert sim.reloj.minuto == 1
     assert sim.reloj.hora == 0
+    assert sim.reloj.minuto == 0
+    assert sim.reloj.segundo == 1
 
     for _ in range(59):
         sim.tick()
-    assert sim.reloj.minuto == 0
-    assert sim.reloj.hora == 1
+        assert sim.reloj.hora == 0
+        assert sim.reloj.minuto == 1
+        assert sim.reloj.segundo == 1
 
-    for _ in range(60*23):
+    for _ in range(60*60-1):
         sim.tick()
-    assert sim.reloj.minuto == 0
-    assert sim.reloj.hora == 0
+        assert sim.reloj.hora == 1
+        assert sim.reloj.minuto == 1
+        assert sim.reloj.segundo == 1
+
+    for _ in range(60*60*24-1):
+        assert sim.reloj.hora == 1
+        assert sim.reloj.minuto == 1
+        assert sim.reloj.segundo == 1
+        
