@@ -9,3 +9,4 @@ class EstadoCliente(Enum):
     RECLAMANDO_MESA = auto()
     ENOJADO = auto()
     HAMBRIENTO = auto()
+    MUERTO = auto()

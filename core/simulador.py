@@ -1,4 +1,4 @@
-from models.reloj import Reloj
+from core.reloj import Reloj
 from models.tipo_entidad import TipoEntidad
 
 class Simulador:

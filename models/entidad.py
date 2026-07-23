@@ -5,7 +5,8 @@ class Entidad:
         self.tipo = tipo
         self.id = self.__class__.siguiente_id
         self.__class__.siguiente_id += 1
-        self.nombre = nombre if nombre else ""
+        self.label = f"{tipo.name}[{self.id}]"
+        self.label += nombre if nombre else ""
 
     def tick(self, sim):
         pass

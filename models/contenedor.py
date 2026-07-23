@@ -1,4 +1,5 @@
 from models.entidad import Entidad
+from models.posicion import Posicion
 
 class Contenedor(Entidad):
 
@@ -12,6 +13,8 @@ class Contenedor(Entidad):
         if objetos is not None: 
             self._objetos = objetos
             self._carga_actual = sum([objeto.peso for objeto in self._objetos])
+
+        self.posicion = Posicion()
 
     def agregar_objeto(self, objeto):
         if objeto in self._objetos or not self.puede_cargar(objeto):

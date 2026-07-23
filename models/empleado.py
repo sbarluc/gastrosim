@@ -2,10 +2,11 @@ from models.inventario import Inventario
 from models.entidad import Entidad
 from models.tipo_entidad import TipoEntidad
 from models.pedido import Pedido
+from models.posicion import Posicion
 
 class Empleado(Entidad):
 
-    def __init__(self, nombre, puesto): 
+    def __init__(self, nombre, puesto, x=0, y=0): 
         super().__init__(TipoEntidad.EMPLEADO, nombre=nombre)
         
         self.nombre = nombre
@@ -13,6 +14,9 @@ class Empleado(Entidad):
 
         self._inventario = Inventario()
         self._pedidos = {}
+
+        self.posicion = Posicion()
+    
 
     def cargar_objeto_desde(self, objeto, origen):
         _objeto = origen.quitar_objeto(objeto)

@@ -1,9 +1,10 @@
 from models.contenedor import Contenedor
 from models.tipo_entidad import TipoEntidad
+from models.posicion import Posicion
 
 class Mesa(Contenedor):
 
-    def __init__(self, cantidad_sillas, objetos=None, carga_max=float("inf")):
+    def __init__(self, cantidad_sillas, x=0, y=0, objetos=None, carga_max=float("inf")):
         super().__init__(TipoEntidad.MESA, objetos, carga_max)
 
         self.cantidad_sillas = cantidad_sillas

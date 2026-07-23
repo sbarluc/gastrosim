@@ -3,10 +3,11 @@ from models.tipo_entidad import TipoEntidad
 from models.pedido import Pedido
 from models.estado_cliente import EstadoCliente
 from models.item_pedido import ItemPedido
+from models.posicion import Posicion
 
 class Cliente(Entidad):
     
-    def __init__(self, nombre, edad, specs=None):
+    def __init__(self, nombre, edad):
         super().__init__(TipoEntidad.CLIENTE, nombre=nombre)
 
         self.edad = edad
@@ -18,6 +19,8 @@ class Cliente(Entidad):
         self._sentado = False
         self._pedido = Pedido(cliente=self)
 
+        self.posicion = Posicion()
+
     # Consultas
 
     def tiene_estado(self, estado):
@@ -28,6 +31,9 @@ class Cliente(Entidad):
 
     def quitar_estado(self, estado):
         self.estados.discard(estado)
+
+    def limpiar_estados(self):
+        self.estados = set()
 
     def lista_estados(self):
         return [e.name for e in self.estados]
@@ -83,6 +89,9 @@ class Cliente(Entidad):
         self.decidir(sim)
 
     def actualizar_necesidades(self):
+        if self.tiene_estado(EstadoCliente.MUERTO):
+            return
+
         if self.tiene_estado(EstadoCliente.COMIENDO):
             self.hambre = max(0, self.hambre - 1)
         else:
@@ -105,7 +114,13 @@ class Cliente(Entidad):
             self.quitar_estado(EstadoCliente.RECLAMANDO_MESA)
             self.quitar_estado(EstadoCliente.ENOJADO)
 
+        if self.hambre > 200:
+            self.limpiar_estados()
+            self.agregar_estado(EstadoCliente.MUERTO)
+
     def decidir(self, sim):
+        if self.tiene_estado(EstadoCliente.MUERTO):
+            return 
         if self.tiene_estado(EstadoCliente.ESPERANDO_MESA) and self.tiene_estado(EstadoCliente.IMPACIENTE):
             mesa_libre = sim.buscar_mesa_libre()
             if mesa_libre:
